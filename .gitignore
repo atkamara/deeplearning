@@ -1,2 +1,5 @@
 tf_logs/*
 models/*
+*.ipynb_checkpoints*
+.Trash*
+lib*
