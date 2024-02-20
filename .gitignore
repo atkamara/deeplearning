@@ -3,3 +3,5 @@ models/*
 *.ipynb_checkpoints*
 .Trash*
 lib*
+*.db
+*.pyc

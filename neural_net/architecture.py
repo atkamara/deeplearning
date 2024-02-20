@@ -1,32 +1,40 @@
-class Sequential:
-    def __init__(self,steps):
+from .db import *
+from .utils import *
+
+class Sequential(GraphManager):
+
+    def __init__(self,steps,db=None):
+        super().__init__()
+        DBmanager().start(db)
         self.steps = steps
+
     def eval(self):
         self.out  = self.steps[0].eval()
         for step in self.steps[1:]:
             step.In = self.out
             step.eval()
             self.out = step.out
+            self.outid = self.out[0][0]
         return self.out
-    def train(self,X,y,α,n_epochs,cost,metrics,batch_size=None):
+    
+    def predict(self,X):
+        self.steps[0].In = [(id(X),X)]
+        self.out = self.eval()
+        return self.out
+    
+    def train(self,X,y,α,n_epochs,metrics,batch_size=None):
 
-        n = len(y)
-        batch_size = batch_size or n
-        batchix = list(range(0,n,batch_size))
-        if batchix[-1]<n : batchix.append(n)
-        batchix = [slice(low,high) for low,high in zip(batchix,batchix[1:])]
+        batchix = get_batchix(len(y),batch_size)
 
-        for n in range(n_epochs):
+        for e in range(n_epochs):
             for ix in batchix:
                 new_y,new_X = y[ix,:],X[ix,:]
-                self.steps[0].In = [(id(new_X),new_X)]
-                outid,p = self.eval()[0]
-                L,m = cost(new_y,p),metrics(new_y,p)
-                Δ =  {outid:α*L.prime()}
-                self.update(Δ)
-                print('epoch',n,'batch',ix,'metrics',m.eval(),'cost',L.eval())
-    def update(self,Δnext):
-        self.Δnext = Δnext
+                self.predict(new_X)
+                self.update({self.outid:new_y})
+            print('epoch',e,str(metrics),metrics(new_y,self.out).eval())
+
+    def update(self,Δnext_or_ynext):
+        self.Δnext_or_ynext = Δnext_or_ynext
         for step in self.steps[::-1]:
-            self.Δnext = step.update(self.Δnext)
+            self.Δnext_or_ynext = step.update(self.Δnext_or_ynext)
         return self

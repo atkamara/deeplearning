@@ -1,26 +1,28 @@
-Create Table Neurons(
+Create Table IF NOT EXISTS Neurons(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  neuron_id INTEGER,
-  layer_id INTEGER,
-  created_at  DATE NOT NULL,
-  updated_at DATE NOT NULL,
+  neuron_id BIGINT,
+  layer_id BIGINT,
+  created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  type VARCHAR(50) NOT NULL,
   FOREIGN KEY (layer_id) REFERENCES Layers(layer_id)
 );
 
-Create Table Layers(
+Create Table IF NOT EXISTS Layers(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  layer_id INTEGER,
-  created_at  DATE NOT NULL,
-  updated_at DATE NOT NULL,
+  layer_id BIGINT,
+  n_out INTEGER,
+  created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   type VARCHAR(50) NOT NULL
 );
 
-Create Table Weights(
+Create Table IF NOT EXISTS Weights(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   weight_id INTEGER NOT NULL,
-  neuron_id INTEGER NOT NULL,
-  created_at  DATE NOT NULL,
-  updated_at DATE NOT NULL,
-  value INTEGER,
+  neuron_id BIGINT NOT NULL,
+  created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  value REAL ,
   FOREIGN KEY (neuron_id) REFERENCES Neurons(neuron_id)
 );
