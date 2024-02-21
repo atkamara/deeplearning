@@ -10,8 +10,8 @@ class SQL:
     create_table = open(get_path(['create_tables.sql'])).read()
     
     neuron = lambda obj : [ 'neurons',
-                    ['neuron_id','layer_id','type'],
-                    [(obj.id['id'],obj.id['layer']['id'],obj.id['type'])]
+                    ['neuron_id','layer_id','type','n_in'],
+                    [(obj.id['id'],obj.id['layer']['id'],obj.id['type'],obj.id['n_in'])]
                     ]
 
     layers = lambda obj : ['layers',
@@ -27,8 +27,10 @@ class DBmanager:
 	def __init__(self):
 		...
 	def start(self,db=None):
-		DBmanager.con = sqlite3.connect(db or get_path(['run',f"model{now()}.db"]))
+		self.db_path = db or get_path(['run',f"model{now()}.db"])
+		DBmanager.con = sqlite3.connect(self.db_path)
 		DBmanager.con.executescript(SQL.create_table)
+		return self.db_path
 			
 	def insert_db(self,table,columns,items):
 		cursor = DBmanager.con.cursor()

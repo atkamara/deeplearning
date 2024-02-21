@@ -23,13 +23,13 @@ class Layer(DBmanager,GraphManager):
         self.out = [s.eval() for s in self.outfuncs]
         return self.out
     def update(self,Δnext):
-        self.Δ =  {v.In[0] : v.update(Δnext[v.outid]) for v in self.In }
+        self.Δ =  {s.In[0] : s.update(Δnext[s.outid]) for s in self.outfuncs }
         oldks = list(self.Δ)
         for k in oldks:
             if hasattr(k,'__iter__'):
                 v = self.Δ[k]
                 del(self.Δ[k])
-                self.Δ.update(dict(zip(k,v)))
+                self.Δ.update({i:v for i in k})
         return self.Δ  
     
 class neuron(DBmanager,GraphManager):
@@ -40,6 +40,7 @@ class neuron(DBmanager,GraphManager):
     def In(self,val):
         self._In = val
         if self.not_stored:
+            self.id['n_in'] = self.In[1].shape[1]
             self.insert_db(*SQL.neuron(self))
             self.not_stored = False
         if str(self)=='Linear':

@@ -3,12 +3,14 @@ from .utils import *
 
 class Sequential(GraphManager):
 
-    def __init__(self,steps,db=None):
+    def __init__(self,steps,cost_func,db=None):
         super().__init__()
-        DBmanager().start(db)
+        self.db_path = DBmanager().start(db)
         self.steps = steps
+        self.cost_func = cost_func
 
-    def eval(self):
+    def eval(self,X):
+        self.steps[0].In = [(id(X),X)]
         self.out  = self.steps[0].eval()
         for step in self.steps[1:]:
             step.In = self.out
@@ -18,23 +20,27 @@ class Sequential(GraphManager):
         return self.out
     
     def predict(self,X):
-        self.steps[0].In = [(id(X),X)]
-        self.out = self.eval()
+        self.eval(X)
         return self.out
     
-    def train(self,X,y,α,n_epochs,metrics,batch_size=None):
+    def train(self,X,y,n_epochs=100,α=1,metrics=None,batch_size=None):
 
         batchix = get_batchix(len(y),batch_size)
 
         for e in range(n_epochs):
+
             for ix in batchix:
                 new_y,new_X = y[ix,:],X[ix,:]
-                self.predict(new_X)
-                self.update({self.outid:new_y})
-            print('epoch',e,str(metrics),metrics(new_y,self.out).eval())
+                new_pred = self.eval(new_X)
+                Δ = α*self.cost_func(new_y,new_pred).prime()
+                self.update({self.outid:Δ})
+            if metrics:
+                m = metrics(new_y,new_pred)
+                print('epoch',e,str(m),m.eval())
 
-    def update(self,Δnext_or_ynext):
-        self.Δnext_or_ynext = Δnext_or_ynext
+
+    def update(self,Δ):
+        self.Δ = Δ
         for step in self.steps[::-1]:
-            self.Δnext_or_ynext = step.update(self.Δnext_or_ynext)
+            self.Δ = step.update(self.Δ)
         return self

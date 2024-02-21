@@ -22,25 +22,50 @@ class Σ(neuron):
         self.pr = numpy.c_[self.In[1],self.b]
         return self.pr
     
-    def update(self,Δnext):
-        self.Δ = (self.prime().T.dot(Δnext)).reshape(-1,1)/self.In[1].shape[0]
+    def update(self,Δ):
+        self.Δ = (self.prime().T.dot(Δ)).reshape(-1,1)/self.In[1].shape[0]
         self.w -= self.Δ
         self.insert_db(*SQL.weights(self))
-        return self.Δ.sum(axis=1).reshape(-1,1)
+        self.Δtrick = self.Δ.T.dot(self.w)
+        return self.Δtrick
 
 class σ(neuron):
     def __str__(self):
         return 'sigmoid'
     
-    def __init__(self,layer=None,cost_func=binaryCrossEntropy):
+    def __init__(self,layer=None):
         self.id = get_class_def(self,locals())
         self.not_stored = True
 
     def getout(self): return 1/(1+numpy.exp(-self.In[1]))
 
-    def update(self,y):
-        self.Δ = self.id['cost_func'](y,self.out).prime()
+    def prime(self):
+        self.pr = self.out*(1-self.out)
+        return self.pr       
+
+    def update(self,Δ):
+        self.Δ = self.prime()*Δ
         return self.Δ   
+
+class LeakyReLU(neuron):
+    def __str__(self):
+        return 'LeakyReLU'
+    
+    def __init__(self,leak=.01,layer=None):
+        self.id = get_class_def(self,locals())
+        self.not_stored = True
+
+    def getout(self): return numpy.maximum(self.id['leak']*self.In[1],self.In[1])
+
+    def prime(self):
+        neg = self.In[1] < 0
+        self.pr = neg*self.id['leak'] + ~neg
+        return self.pr       
+
+    def update(self,Δ):
+        self.Δ = self.prime()*Δ
+        return self.Δ   
+
 
 
 
@@ -48,13 +73,17 @@ class Softmax(neuron):#normalized exponential
     def __str__(self):
         return 'Softmax'
     
-    def __init__(self,In=None,layer=None,cost_func=binaryCrossEntropy):
+    def __init__(self,In=None,layer=None):
         self.id = get_class_def(self,locals())
         self.__In = In
         self.not_stored = True
 
     def getout(self): return numpy.exp(self.In[1])/numpy.exp(self.In[1]).sum(axis=1).reshape(-1,1)
 
-    def update(self,y):
-        self.Δ = self.id['cost_func'](y,self.out).prime()
-        return self.Δ  
+    def prime(self):
+        self.pr = self.out*(1-self.out)
+        return self.pr       
+
+    def update(self,Δ):
+        self.Δ = self.prime()*Δ
+        return self.Δ   

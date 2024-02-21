@@ -34,7 +34,8 @@ RUN pip install virtualenv --progress-bar off
 
 RUN python -m venv dlenv
 
-RUN dlenv/bin/pip install notebook --progress-bar off
+RUN dlenv/bin/pip install notebook --progress-bar off && \
+	 dlenv/bin/pip install ipython-sql
 
 #Tesorflow
 
