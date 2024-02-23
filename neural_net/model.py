@@ -7,15 +7,20 @@ class Layer(DBmanager,GraphManager):
     @In.setter
     def In(self,In):
         
-        if self.not_stored :
+        if self.id['store'] :
             self.insert_db(*SQL.layers(self))
-            self.not_stored = False
+            self.id['store'] = False
         self._In = dict(In)
         for i,s in enumerate(self.outfuncs):
             if str(self)=='fullyconnected':
-                s.In = (tuple(self.In.keys()),numpy.concatenate(list(self.In.values()),axis=1))
+                keys = tuple(self.In.keys())
+                keys = keys if len(keys)>1 else keys[0]
+                s.In = (keys,numpy.concatenate(list(self.In.values()),axis=1))
             elif str(self)=='activation':
-                s.In = list(self.In.items())[i]
+                if str(self.outfuncs[0]) == 'Softmax':
+                    s.In = (tuple(self.In.keys()),numpy.concatenate(list(self.In.values()),axis=1))
+                else:
+                    s.In = list(self.In.items())[i]
 
     def __len__(self):
         return len(self.In)
@@ -29,7 +34,8 @@ class Layer(DBmanager,GraphManager):
             if hasattr(k,'__iter__'):
                 v = self.Δ[k]
                 del(self.Δ[k])
-                self.Δ.update({i:v for i in k})
+                v = {i:v[:,[ix]] for ix,i in enumerate(k)}
+                self.Δ.update(v)
         return self.Δ  
     
 class neuron(DBmanager,GraphManager):
@@ -50,3 +56,6 @@ class neuron(DBmanager,GraphManager):
     def eval(self):
         self.outid,self.out = self.add_to_graph((self.In[0],self.getout())) 
         return (self.outid,self.out)
+    
+
+

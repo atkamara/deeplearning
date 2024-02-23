@@ -10,9 +10,9 @@ class Σ(neuron):
     
     def __init__(self,layer=None):
         self.id = get_class_def(self,locals())
-        self.w = self.id['layer']['init_method'](self.id['layer']['n_in'])
-        self.not_stored = True
-        self.not_stored_init_w = True
+        self.w = self.id['layer']['init_method'](self.id['layer']['n_in'],self.id['layer']['n_out'])
+        self.not_stored = self.id['layer']['store']
+        self.not_stored_init_w = self.id['layer']['store']
 
     def getout(self):
         self.b = numpy.ones((self.In[1].shape[0],1))
@@ -23,11 +23,13 @@ class Σ(neuron):
         return self.pr
     
     def update(self,Δ):
-        self.Δ = (self.prime().T.dot(Δ)).reshape(-1,1)/self.In[1].shape[0]
-        self.w -= self.Δ
+        self.Δ = Δ.reshape(-1,1)
+        #####breakpoint#######
+        self.w -= (self.prime().T.dot(self.Δ))/self.In[1].shape[0]
         self.insert_db(*SQL.weights(self))
-        self.Δtrick = self.Δ.T.dot(self.w)
-        return self.Δtrick
+        #####resumeflow#######
+        self.Δ = self.Δ.dot(self.w.T)
+        return self.Δ
 
 class σ(neuron):
     def __str__(self):
@@ -35,7 +37,7 @@ class σ(neuron):
     
     def __init__(self,layer=None):
         self.id = get_class_def(self,locals())
-        self.not_stored = True
+        self.not_stored = self.id['layer']['store']
 
     def getout(self): return 1/(1+numpy.exp(-self.In[1]))
 
@@ -53,7 +55,7 @@ class LeakyReLU(neuron):
     
     def __init__(self,leak=.01,layer=None):
         self.id = get_class_def(self,locals())
-        self.not_stored = True
+        self.not_stored = self.id['layer']['store']
 
     def getout(self): return numpy.maximum(self.id['leak']*self.In[1],self.In[1])
 
@@ -75,8 +77,7 @@ class Softmax(neuron):#normalized exponential
     
     def __init__(self,In=None,layer=None):
         self.id = get_class_def(self,locals())
-        self.__In = In
-        self.not_stored = True
+        self.not_stored = self.id['layer']['store']
 
     def getout(self): return numpy.exp(self.In[1])/numpy.exp(self.In[1]).sum(axis=1).reshape(-1,1)
 

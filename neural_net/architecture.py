@@ -31,12 +31,13 @@ class Sequential(GraphManager):
 
             for ix in batchix:
                 new_y,new_X = y[ix,:],X[ix,:]
-                new_pred = self.eval(new_X)
-                Δ = α*self.cost_func(new_y,new_pred).prime()
+                new_pred = self.predict(new_X)
+                c = self.cost_func(new_y,new_pred)
+                Δ = α*c.prime()
                 self.update({self.outid:Δ})
             if metrics:
                 m = metrics(new_y,new_pred)
-                print('epoch',e,str(m),m.eval())
+                print('epoch',e,str(c),c.eval(),str(m),m.eval())
 
 
     def update(self,Δ):

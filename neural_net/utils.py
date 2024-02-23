@@ -11,7 +11,7 @@ now = lambda : datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
 
 
-onehot = lambda y : y==numpy.unique(y)
+onehot = lambda y : (y==numpy.unique(y))+0
 
 scaler = lambda X : (X-X.mean())/X.std()
 
