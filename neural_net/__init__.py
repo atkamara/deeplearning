@@ -1,9 +1,9 @@
 from . import layers
-from . import activation_funcs
+from . import activation
 from . import architecture
 from . import init_funcs
 
-from . import loss
+from . import cost
 from . import metrics
-from . import utils
 from . import db
+from . import pipeline

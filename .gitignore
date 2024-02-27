@@ -5,3 +5,9 @@ models/*
 lib*
 *.db
 *.pyc
+*.pyc
+*.pyc
+*.vscode*
+old/*
+neural_net/__pycache__/*
+runold.py

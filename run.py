@@ -1,24 +1,62 @@
 from neural_net import *
+import numpy
 
-init_method =lambda _in,out: utils.numpy.random.uniform(-1./out**.5, 1/out**.5, (_in+1,1))
 
 
-ann = architecture.Sequential(
-        [
-        layers.fullyconnected(n_in=2,n_out=50,init_method=init_method,store=False),
-        layers.activation(n_in=50,n_out=50,func=activation_funcs.LeakyReLU,store=False),
-        
-            
-        layers.fullyconnected(n_in=50,n_out=2,init_method=init_method,store=False),
-        layers.activation(n_in=2,n_out=1,func=activation_funcs.Softmax,store=False)
-        ],
-    cost_func= loss.CrossEntropy
-    )
-X = utils.numpy.random.uniform(-1,1,size=(100,2))
-y = (X.sum(axis=1) < utils.numpy.random.uniform(.3,.37,(len(X),))).reshape(-1,1)+0
 
+
+ann_sigmoid = architecture.Sequential(
+     [
+
+       layers.Fullyconnected(n_in=2,n_out=50,init_method=init_funcs.XHsigmoiduniform) ,
+       layers.Activation(activation.σ),
+       layers.Fullyconnected(n_in=50,n_out=1,init_method=init_funcs.XHsigmoiduniform) ,
+       layers.Activation(activation.σ),
+
+
+    ],
+    cost = cost.binaryCrossEntropy
+)
+ann_softmax = architecture.Sequential(
+     [
+
+       layers.Fullyconnected(n_in=2,n_out=50,init_method=init_funcs.XHReluuniform) ,
+       layers.Activation(activation.LeakyReLU),
+       layers.Fullyconnected(n_in=50,n_out=2,init_method=init_funcs.XHsigmoiduniform) ,
+       layers.Activation(activation.Softmax),
+
+
+    ],
+    cost = cost.CrossEntropy
+)
+ann_mse = architecture.Sequential(
+     [
+
+       layers.Fullyconnected(n_in=2,n_out=50,init_method=init_funcs.XHReluuniform) ,
+       layers.Activation(activation.LeakyReLU),
+       layers.Fullyconnected(n_in=50,n_out=2,init_method=init_funcs.XHsigmoiduniform) ,
+       layers.Activation(activation.Softmax),
+
+
+    ],
+    cost = cost.MSE
+)
 
 if __name__ == '__main__':
+    n,k = 5000,2
+    X = numpy.random.uniform(-100,100,size=(n,k))
+    y =( (X[:, 0]**2 + X[:, 1]**2)/numpy.pi < 1000).reshape(-1,1)+0
 
-    ann.eval(X)
-    ann.train(X,y,n_epochs=20,metrics=metrics.accuracy)
+
+    X,y = pipeline.shuffle(X,y)
+
+    X = pipeline.scaler(X)
+
+    batch = pipeline.Batch(50,n, lambda : X, lambda : y)
+    
+    ann_sigmoid.train(batch=batch,α=.5,epochs=20,metrics=metrics.accuracy)
+
+    batch = pipeline.Batch(50,n, lambda : X, lambda : pipeline.onehot(y))
+    ann_softmax.train(batch=batch,α=.5,epochs=20,metrics=metrics.accuracy)
+
+    ann_mse.train(batch=batch,α=.5,epochs=20,metrics=metrics.accuracy)

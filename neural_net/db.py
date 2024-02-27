@@ -1,48 +1,101 @@
-import sqlite3
 from .utils import *
 
+from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, Integer,Float, String, DateTime
+from sqlalchemy import create_engine,ForeignKey
+from sqlalchemy.orm import sessionmaker
 
-def get_class_def(self,loc):
-	return {'id':id(self),'type':str(self),**loc}
 
-class SQL:
+Base = declarative_base()
 
-    create_table = open(get_path(['create_tables.sql'])).read()
-    
-    neuron = lambda obj : [ 'neurons',
-                    ['neuron_id','layer_id','type','n_in'],
-                    [(obj.id['id'],obj.id['layer']['id'],obj.id['type'],obj.id['n_in'])]
-                    ]
+def add_name_id(cl): 
+		setattr(cl,cl.__name__+'_id',Column(Integer))
+		return cl
 
-    layers = lambda obj : ['layers',
-                            ['layer_id','type','n_out'],
-                            [(obj.id['id'],obj.id['type'],obj.id['n_out'])]]
-    weights = lambda obj : ['weights',
-                            ['neuron_id','weight_id','value'],
-                            [(obj.id['id'],ix,w) for ix,w in enumerate(obj.w.ravel())]]
+class DefaultTable:
+	id = Column(Integer, primary_key=True, autoincrement=True)
+	created_at = Column(DateTime,default=datetime.datetime.utcnow)
+	updated_at = Column(DateTime,default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+	name = Column(String)
 	
+
+
+class Architecture(DefaultTable,Base):
+	__tablename__ = 'Architecture'
+
+class Layer(DefaultTable,Base):
+	__tablename__ = 'Layer'
+	Architecture_id = Column(Integer,ForeignKey("Architecture.Architecture_id")) 
+	n_in = Column(Integer)
+	n_out = Column(Integer)
+	#init_method = Column(String)
+
+
+class Neurons(DefaultTable,Base):
+	__tablename__ = 'Neurons'
+	Layer_id = Column(Integer,ForeignKey("Layer.Layer_id")) 
+
+
+class Cost(DefaultTable,Base):
+	__tablename__ = 'Cost'
+	Architecture_id = Column(Integer,ForeignKey("Architecture.Architecture_id"))
+	value = Column(Integer)
+
+class Weight(DefaultTable,Base):
+	__tablename__ = 'Weight'
+	value = Column(Integer)
+	Neurons_id = Column(Integer,ForeignKey("Neurons.Neurons_id")) 
+
+
+tables = {cl.__name__:[
+							(m:=add_name_id(cl)), 
+							[k.key for k in m.__table__.columns if k.key not in ['id','created_at','updated_at']
+					
+					]] for cl in [Architecture,Layer,Neurons,Cost,Weight]
+					}
+
+def get_instance(self):
+	table,cols = tables[str(self)]
+	values = {k:v for k,v in self.id.items() if k in cols}
+	return table(**values)
+
+def update_instance(self):
+	_,cols = tables[str(self)]
+	for k,v in self.id.items():
+		if k in cols:
+			setattr(self.table,k,v)
+
+
 class DBmanager:
+	
+	engines = {}
+	status = False
 
-
-	def __init__(self):
-		...
-	def start(self,db=None):
-		self.db_path = db or get_path(['run',f"model{now()}.db"])
-		DBmanager.con = sqlite3.connect(self.db_path)
-		DBmanager.con.executescript(SQL.create_table)
-		return self.db_path
+	def __start(db=None):
+		db_path = db or f'sqlite:///{get_module_path(["run",f"model{now()}.db"])}'
+		DBmanager.path =db_path
+		DBmanager.engines[DBmanager.path] = create_engine(DBmanager.path)
+		Base.metadata.create_all(DBmanager.engines[DBmanager.path])
+		Session = sessionmaker(bind=DBmanager.engines[DBmanager.path])
+		DBmanager.session = Session()
 			
-	def insert_db(self,table,columns,items):
-		cursor = DBmanager.con.cursor()
-		self.columns = columns
-		colstr = ','.join(self.columns)
-		placeholders = ','.join(['?']*len(self.columns))
-		query = f"""
-					INSERT INTO {table} 
-					({colstr}) 
-					VALUES ({placeholders})
-				"""
-		cursor.executemany(query, 
-					items)
-		DBmanager.con.commit()
+	def add_table(self,table):
+		if not DBmanager.status : 
+			DBmanager._DBmanager__start()
+			DBmanager.status = True
+		DBmanager.session.add(table)
+
+	def commit(self):
+		DBmanager.session.commit()
+
+
+class SQL(DBmanager):
+	...
+	#__defined = []
+	
+	#def add_to_definition(self):
+	#	for k,v in self.id.items() :
+	#		setattr(tables[str(self)],k,Fields[type(v).__name__])
+	#	SQL._SQL__defined.append(str(self))
+	
 

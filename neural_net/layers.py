@@ -1,23 +1,13 @@
-from .activation_funcs import *
-from .model import Layer,get_class_def
+from .model import Layer
+from .activation import Σ
 
 
-class fullyconnected(Layer):
-
-    def __str__(self):
-        return 'fullyconnected'
+class Fullyconnected(Layer):
     
-    def __init__(self,n_in,n_out,init_method=zeros,store=True):
-        self.id   = get_class_def(self,locals())
-        self.outfuncs = [Σ(layer=self.id) for _ in range(self.id['n_out'])]
+    def __init__(self,n_in,n_out,init_method,func=Σ) -> None:
+        self + locals()
 
-  
+class Activation(Layer):
     
-class activation(Layer):
-
-    def __str__(self):
-        return 'activation'
-    
-    def __init__(self,n_in,n_out,func,store=True):
-        self.id   = get_class_def(self,locals())
-        self.outfuncs = [self.id['func'](layer=self.id) for _ in range(self.id['n_out'])]
+    def __init__(self,func,init_method=None) -> None:
+        self + locals()
