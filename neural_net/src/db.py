@@ -5,12 +5,19 @@ from sqlalchemy import Column, Integer,Float, String, DateTime
 from sqlalchemy import create_engine,ForeignKey
 from sqlalchemy.orm import sessionmaker
 
+###################################
+#                                 #
+# Here goes code for sql orm      #
+#                                 #
+#                                 # 
+###################################
+
 
 Base = declarative_base()
 
-def add_name_id(cl): 
-		setattr(cl,cl.__name__+'_id',Column(Integer))
-		return cl
+def add_name_id(cl):
+	setattr(cl,cl.__name__+'_id',Column(Integer))
+	return cl
 
 class DefaultTable:
 	id = Column(Integer, primary_key=True, autoincrement=True)
@@ -54,12 +61,22 @@ tables = {cl.__name__:[
 					]] for cl in [Architecture,Layer,Neurons,Cost,Weight]
 					}
 
-def get_instance(self):
+def get_instance(self) -> DefaultTable:
+	"""
+    Returns an SQLAlchemy Table object corresponding to the given table name.
+
+    Returns:
+        Table: SQLAlchemy Table object corresponding to the specified table name.
+	"""
 	table,cols = tables[str(self)]
 	values = {k:v for k,v in self.id.items() if k in cols}
 	return table(**values)
 
-def update_instance(self):
+def update_instance(self) -> None:
+	"""
+	Updates the given instance with the provided keyword arguments.
+
+	"""
 	_,cols = tables[str(self)]
 	for k,v in self.id.items():
 		if k in cols:
@@ -67,11 +84,27 @@ def update_instance(self):
 
 
 class DBmanager:
-	
+	"""
+    Manages database connections and sessions using SQLAlchemy.
+
+    Args:
+        db (str, optional): Path to database server or SQLite database file. Defaults to None.
+
+    Attributes:
+        session (Session): SQLAlchemy session for database operations.
+
+    Methods:
+		_DBmanager__start()-> None:
+			Starts a session
+        add_table(table: DefaultTable) -> None:
+            Adds a table instance to the current session.
+        commit() -> None:
+            Commits changes to the session.
+    """
 	engines = {}
 	status = False
 
-	def __start(db=None):
+	def __start(db : str=None)-> None:
 		db_path = db or f'sqlite:///{get_module_path(["run",f"model{now()}.db"])}'
 		DBmanager.path =db_path
 		DBmanager.engines[DBmanager.path] = create_engine(DBmanager.path)
@@ -79,23 +112,11 @@ class DBmanager:
 		Session = sessionmaker(bind=DBmanager.engines[DBmanager.path])
 		DBmanager.session = Session()
 			
-	def add_table(self,table):
+	def add_table(self,table:DefaultTable) -> None:
 		if not DBmanager.status : 
 			DBmanager._DBmanager__start()
 			DBmanager.status = True
 		DBmanager.session.add(table)
 
-	def commit(self):
+	def commit(self) -> None:
 		DBmanager.session.commit()
-
-
-class SQL(DBmanager):
-	...
-	#__defined = []
-	
-	#def add_to_definition(self):
-	#	for k,v in self.id.items() :
-	#		setattr(tables[str(self)],k,Fields[type(v).__name__])
-	#	SQL._SQL__defined.append(str(self))
-	
-

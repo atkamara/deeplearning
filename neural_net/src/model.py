@@ -130,6 +130,10 @@ class Neurons(Define):
 
 class Cost(Define):
 
+    def clip(self):
+        ε = 1e-7
+        self.p =self.p.clip(ε,1-ε)
+
     def __str__(self) -> str:
         return 'Cost'
     
