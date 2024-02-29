@@ -23,6 +23,7 @@ class accuracy(Metrics):
             Computes the accuracy score based on true labels (y) and predicted probabilities (p).
 
     Example:
+    ```python
         >>> acc = accuracy(threshold=0.6)
         >>> y_true = numpy.array([[1], [0], [1], [0]])
         >>> y_pred = numpy.array([[0.8], [0.3], [0.9], [0.5]])
@@ -51,6 +52,7 @@ class accuracy(Metrics):
         >>> acc_multiclass = model_multiclass.compute(y_true_multiclass, y_pred_multiclass)
         >>> print(f"Accuracy (multiclass): {acc_multiclass:.4f}")
         Accuracy (multiclass): 0.7500
+        ```
 
     """
     def __init__(self,threshold = .5) -> None:

@@ -1,10 +1,11 @@
-site_name: Neural net docs
+site_name: Neural Net documentations
 
 theme:
-  name: "material"
+  name: readthedocs
 
 plugins:
   - mkdocstrings
+  - search
 
 nav:
   - Neural net docs: index.md

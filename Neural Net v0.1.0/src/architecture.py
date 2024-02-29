@@ -7,14 +7,11 @@
 """
 from .model import Architecture,Layer,Cost,Metrics
 from .pipeline import Batch
-
 from .utils import tqdm,numpy
 from .metrics import Empty
 
 
 class Sequential(Architecture):
-    
-
     def __init__(self,steps: list[Layer],cost: Cost) -> None:
         """
         Initialize a Sequential class.
@@ -32,8 +29,6 @@ class Sequential(Architecture):
         self + locals()
         self['cost'] = self['cost'](self['id'])
         self.commit()
-
-    
     def train(self,X:numpy.array=None,y:numpy.array=None,batch:Batch=None,epochs: int = 100, α: float = 0.001,metrics : Metrics=Empty ) -> None:
         """
         Trains a neural network model using sequential architecture

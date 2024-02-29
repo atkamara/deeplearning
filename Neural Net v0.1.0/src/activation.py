@@ -159,7 +159,6 @@ class Softmax(Neurons):
         self.X = X
         self.probs = (ex:=numpy.exp(self.X))/ex.sum(axis=1).reshape(-1,1)
         return self.probs
-
 class LeakyReLU(Neurons):
     """
     A class representing the Leaky Rectified Linear Unit (LeakyReLU) activation function.

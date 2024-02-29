@@ -36,7 +36,6 @@ class binaryCrossEntropy(Cost):
     """    
     def __init__(self,Architecture_id=None) -> None:
         self + locals()
-
     def pr(self) -> numpy.array:
         """
         Computes the derivative function values  with respet to p.
@@ -45,7 +44,6 @@ class binaryCrossEntropy(Cost):
             numpy.array: Derivative function values.
         """
         return -(self.y/self.p - (1-self.y)/(1-self.p))
-    
     def compute(self,y: numpy.array,p: numpy.array) -> float:
         """
         Computes the binary cross-entropy loss.
