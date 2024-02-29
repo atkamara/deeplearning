@@ -12,3 +12,4 @@ old/*
 *venv*
 neural_net/__pycache__/*
 runold.py
+*egg*
