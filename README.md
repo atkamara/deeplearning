@@ -1,3 +1,1 @@
-docker build -t tensorflow-jupyter .
-
-docker run --name tensorflow -p 8888:8888 -v /home/akamara:/Users/Abdou/Desktop/data/Docker/volumes/deeplearning 
+<a href="https://ibb.co/mGcm59P"><img src="https://i.ibb.co/dr5S4PH/nn.png" alt="nn" border="0"></a>
