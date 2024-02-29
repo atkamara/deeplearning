@@ -1,4 +1,4 @@
-from neural_net import *
+from src import *
 import numpy
 
 
