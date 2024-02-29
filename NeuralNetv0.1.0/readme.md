@@ -1,7 +1,7 @@
-Neural Network
-==============
-
-# Creating a Sequential Neural Network
+Neural Network v0.1.0
+=====================
+# [Documentation](https://atkamara.github.io/NeuralNetv0.1.0/)
+# Quick start
 
 ## 1. Import all modules from neural_net package
 
