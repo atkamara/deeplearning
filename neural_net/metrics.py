@@ -1,6 +1,12 @@
+"""
+    This modules provides metrics classes
+
+    - `accuracy` 
+
+"""
+
 from .utils import numpy
 from .model import Metrics
-
 
 class accuracy(Metrics):
     """

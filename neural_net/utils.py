@@ -1,3 +1,10 @@
+"""
+Provides utility functions
+
+- `get_module_path` - Returns the path to a subdirectory named 'dir' relative to the currently executed script.
+- `now` - current timestamp
+- `unfold` - Unfolds a nested dictionary by appending the values of inner dictionaries to the outer dictionary.
+"""
 import numpy,os,pandas
 import datetime,tqdm
 
@@ -22,7 +29,6 @@ def now()-> int:
         int: Current timestamp (number of seconds since the epoch).
     """
     return int(datetime.datetime.now().timestamp())
-
 
 def unfold(d: dict) -> dict:
     """

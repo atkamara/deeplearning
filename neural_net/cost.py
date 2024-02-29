@@ -1,3 +1,11 @@
+"""
+    This modules provides classes for several types of cost functions
+
+    - `binaryCrossEntropy` 
+    - `CrossEntropy` 
+    - `MSE`
+
+"""
 from .utils import numpy
 from .model import Cost
 
@@ -16,8 +24,8 @@ class binaryCrossEntropy(Cost):
             Computes the derivative function values.
 
     Example:
-        >>> y_true = numpy.array([0, 1, 1, 0])
-        >>> predicted_probs = numpy.array([0.2, 0.8, 0.6, 0.3])
+        >>> y_true = numpy.array([[0], [1], [1], [0]])
+        >>> predicted_probs = numpy.array([[0.2], [0.8], [0.6], [0.3]])
         >>> bce_loss = binaryCrossEntropy()
         >>> loss_value = bce_loss.compute(y_true, predicted_probs)
         >>> print(f"Binary Cross-Entropy Loss: {loss_value:.4f}")
@@ -52,8 +60,7 @@ class binaryCrossEntropy(Cost):
         self.y,self.p = y,p
         self.clip()
         return -(self.y*numpy.log(self.p) + (1-self.y)*numpy.log(1-self.p)).mean()
-
-    
+   
 class CrossEntropy(Cost):
     """
     Cross-Entropy Loss.
@@ -115,9 +122,6 @@ class CrossEntropy(Cost):
         self.clip()
         return -(self.y*numpy.log(self.p) + (1-self.y)*numpy.log(1-self.p)).mean()
         
-
-    
-
 class MSE(Cost):
     """
     Mean Squared Error (MSE) Loss.

@@ -1,3 +1,10 @@
+"""
+    This modules provides neural network architectures
+    Currently available are
+
+    - `Sequential` - Sequential linear net architecture
+
+"""
 from .model import Architecture,Layer,Cost,Metrics
 from .pipeline import Batch
 
@@ -32,9 +39,9 @@ class Sequential(Architecture):
         Trains a neural network model using sequential architecture
 
         Args:
-            X (numpy.ndarray): Matrix of training features with shape (n, k), where n is the number of samples
+            X (numpy.array): Matrix of training features with shape (n, k), where n is the number of samples
                               and k is the number of features.
-            y (numpy.ndarray): Target variable with shape (n, 1).
+            y (numpy.array): Target variable with shape (n, 1).
             batch (Optional[Batch]): Optional Batch object that generates batches from the training data.
             epochs (int): Maximum number of training epochs.
             α (float): Learning rate (step size for weight updates).

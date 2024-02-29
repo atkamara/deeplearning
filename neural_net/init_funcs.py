@@ -1,3 +1,11 @@
+"""
+    This modules provides initialization functions
+
+    - `zeros(n_in: int, n_out: int)` - Initializes a weight matrix with zeros
+    - `XHsigmoiduniform` - AA function representing weight initialization using Xavier (Glorot) initialization for sigmoid activation functions.
+    - `XHReluuniform` - A function representing weight initialization using Xavier (Glorot) initialization for Rectified linear unit(RELU) activation functions.
+
+"""
 from .utils import numpy
 
 def zeros(n_in: int, n_out: int) -> numpy.array:

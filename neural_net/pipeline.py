@@ -1,3 +1,12 @@
+"""
+    This modules provides functions for data preparation
+
+    - `Batch` - feed data in chunks
+    - `shuffle` - shuffles train sets
+    - `onehot` - onehot encodes target variables
+	- `scaler` - scales input features
+
+"""
 from .utils import numpy,pandas
 
 def get_ix(size: int,obs: int) -> list[slice]:  
@@ -56,8 +65,8 @@ class Batch:
         Args:
             size (int): Size of each batch.
             obs (int): Total sample size.
-            X (numpy.ndarray): function providing access to Numpy array containing features.
-            y (numpy.ndarray): function providing access to Numpy array containing target variable.     
+            X (numpy.array): function providing access to Numpy array containing features.
+            y (numpy.array): function providing access to Numpy array containing target variable.     
         Returns:
             None        
         Example:
@@ -113,9 +122,6 @@ def onehot(y:numpy.array) -> numpy.array:
          [1. 0. 0.]]
     """
     return (y==numpy.unique(y))+0
-
-
-
 
 def scaler(X: numpy.array) -> numpy.array:
     """

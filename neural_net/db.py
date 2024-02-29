@@ -1,3 +1,14 @@
+"""
+    This modules provides sqlalchemy orm tables and utility objects
+
+    - `DefaultTable` - generic table template
+    - `Architecture` - Architecture table
+    - `Layer` - layer table
+	- `Neurons` - neurons table
+	- `Cost` - cost table
+	- `Weight` - weight table
+
+"""
 from .utils import *
 
 from sqlalchemy.orm import declarative_base
@@ -25,8 +36,6 @@ class DefaultTable:
 	updated_at = Column(DateTime,default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 	name = Column(String)
 	
-
-
 class Architecture(DefaultTable,Base):
 	__tablename__ = 'Architecture'
 
@@ -37,11 +46,9 @@ class Layer(DefaultTable,Base):
 	n_out = Column(Integer)
 	#init_method = Column(String)
 
-
 class Neurons(DefaultTable,Base):
 	__tablename__ = 'Neurons'
 	Layer_id = Column(Integer,ForeignKey("Layer.Layer_id")) 
-
 
 class Cost(DefaultTable,Base):
 	__tablename__ = 'Cost'
@@ -52,7 +59,6 @@ class Weight(DefaultTable,Base):
 	__tablename__ = 'Weight'
 	value = Column(Integer)
 	Neurons_id = Column(Integer,ForeignKey("Neurons.Neurons_id")) 
-
 
 tables = {cl.__name__:[
 							(m:=add_name_id(cl)), 
@@ -81,7 +87,6 @@ def update_instance(self) -> None:
 	for k,v in self.id.items():
 		if k in cols:
 			setattr(self.table,k,v)
-
 
 class DBmanager:
 	"""

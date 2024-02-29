@@ -1,3 +1,12 @@
+"""
+    This modules provides classes for several types of activation functions
+
+    - `Σ` - Linear combination of weights and biases
+    - `σ` - sigmoid activation
+    - `Softmax`- Softmax activation
+    - `LeakyReLU`- Leaky rectified linear unit activation
+
+"""
 from .utils import numpy
 from .model import Neurons,Layer
 
@@ -104,10 +113,7 @@ class σ(Neurons):
         self.X = X
         self.probs = 1/(1+numpy.exp(-self.X))
         return self.probs
-
-
  
-    
 class Softmax(Neurons):
     """
         A class representing the softmax activation function.
@@ -154,8 +160,6 @@ class Softmax(Neurons):
         self.probs = (ex:=numpy.exp(self.X))/ex.sum(axis=1).reshape(-1,1)
         return self.probs
 
-
-
 class LeakyReLU(Neurons):
     """
     A class representing the Leaky Rectified Linear Unit (LeakyReLU) activation function.
@@ -200,4 +204,3 @@ class LeakyReLU(Neurons):
         """
         self.X = X
         return numpy.maximum(self['leak']*self.X,self.X)
-
