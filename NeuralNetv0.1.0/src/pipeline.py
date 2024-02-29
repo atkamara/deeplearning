@@ -21,11 +21,13 @@ def get_ix(size: int,obs: int) -> list[slice]:
         list[slice]: A list of slice objects representing batch indices.
 
     Example:
-        >>> obs = 70  # Total samples
-        >>> batch_size = 20
-        >>> batch_slices = get_ix(obs, batch_size)
-        >>> batch_slices
-        [slice(0, 20, None), slice(20, 40, None), slice(40, 60, None), slice(60, 70, None)]
+    ```python
+            >>> obs = 70  # Total samples
+            >>> batch_size = 20
+            >>> batch_slices = get_ix(obs, batch_size)
+            >>> batch_slices
+            [slice(0, 20, None), slice(20, 40, None), slice(40, 60, None), slice(60, 70, None)]
+    ```
     """
     batchix = list(range(0,obs,size))
     if batchix[-1]<obs : batchix.append(obs)
@@ -45,11 +47,13 @@ def shuffle(X: numpy.array,y: numpy.array) -> tuple[numpy.array,numpy.array]:
         Tuple[numpy.array, numpy.array]: Shuffled X and y arrays.
 
     Example:
-        >>> n,k = 5000,2
-        >>> X_train = numpy.random.uniform(-100,100,size=(n,k))
-        >>> y_train =( (X_train[:, 0]**2 + X_train[:, 1]**2)/numpy.pi < 1000).reshape(-1,1)+0 
-        >>> shuffled_X, shuffled_y = shuffle(X_train, y_train)
-        # Now shuffled_X and shuffled_y contain randomly shuffled samples.
+    ```python
+            >>> n,k = 5000,2
+            >>> X_train = numpy.random.uniform(-100,100,size=(n,k))
+            >>> y_train =( (X_train[:, 0]**2 + X_train[:, 1]**2)/numpy.pi < 1000).reshape(-1,1)+0 
+            >>> shuffled_X, shuffled_y = shuffle(X_train, y_train)
+            # Now shuffled_X and shuffled_y contain randomly shuffled samples.
+    ```
     """
     X = pandas.DataFrame(X).sample(frac=1)
     
@@ -70,19 +74,21 @@ class Batch:
         Returns:
             None        
         Example:
-            >>> def get_X():
-            ...     return numpy.array([[1, 2], [3, 4], [5, 6]])
-            >>> def get_y():
-            ...     return numpy.array([[0], [1], [0]])
-            >>> batch_size = 2
-            >>> total_samples = len(X)
-            >>> batch = Batch(size=batch_size, obs=total_samples, X=get_X, y=get_y)
-            >>> for X_batch, y_batch in batch:
-            ...     print(f"Features: {X_batch}, Target: {y_batch}")
-            Features: [[1 2]
-            [3 4]], Target: [[0]
-            [1]]
-            Features: [[5 6]], Target: [[0]]
+        ```python
+                >>> def get_X():
+                ...     return numpy.array([[1, 2], [3, 4], [5, 6]])
+                >>> def get_y():
+                ...     return numpy.array([[0], [1], [0]])
+                >>> batch_size = 2
+                >>> total_samples = len(X)
+                >>> batch = Batch(size=batch_size, obs=total_samples, X=get_X, y=get_y)
+                >>> for X_batch, y_batch in batch:
+                ...     print(f"Features: {X_batch}, Target: {y_batch}")
+                Features: [[1 2]
+                [3 4]], Target: [[0]
+                [1]]
+                Features: [[5 6]], Target: [[0]]
+        ```
         """
         self.size = size
         self.obs = obs
@@ -112,14 +118,16 @@ def onehot(y:numpy.array) -> numpy.array:
         numpy.array: One-hot encoded representation of the target variable.
 
     Example:
-        >>> y = numpy.array([[0],[ 1], [2], [1], [0]])
-        >>> onehot_encoded = onehot(y)
-        >>> print(onehot_encoded)
-        [[1. 0. 0.]
-         [0. 1. 0.]
-         [0. 0. 1.]
-         [0. 1. 0.]
-         [1. 0. 0.]]
+    ```python
+            >>> y = numpy.array([[0],[ 1], [2], [1], [0]])
+            >>> onehot_encoded = onehot(y)
+            >>> print(onehot_encoded)
+            [[1. 0. 0.]
+             [0. 1. 0.]
+             [0. 0. 1.]
+             [0. 1. 0.]
+             [1. 0. 0.]]
+    ```
     """
     return (y==numpy.unique(y))+0
 
@@ -134,11 +142,13 @@ def scaler(X: numpy.array) -> numpy.array:
         numpy.array: Scaled version of the input array.
 
     Example:
-        >>> X = numpy.array([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
-        >>> scaled_X = scaler(X)
-        >>> print(scaled_X)
-        [[-1.22474487 -1.22474487]
-         [ 0.          0.        ]
-         [ 1.22474487  1.22474487]]
+    ```python
+            >>> X = numpy.array([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
+            >>> scaled_X = scaler(X)
+            >>> print(scaled_X)
+            [[-1.22474487 -1.22474487]
+             [ 0.          0.        ]
+             [ 1.22474487  1.22474487]]
+    ```
     """
     return (X-X.mean(axis=0))/X.std(axis=0)

@@ -16,22 +16,22 @@
 This reference page provides an overview of all functions, classes and methods available in the neural_net project
 
 ## Section 1. layers
-::: neural_net.layers
+::: src.layers
 ## Section 2. activation functions
-::: neural_net.activation
+::: src.activation
 ## Section 3. neural network architectures
-::: neural_net.architecture
+::: src.architecture
 ## Section 4. initialisation functions
-::: neural_net.init_funcs
+::: src.init_funcs
 ## Section 5. cost functions
-::: neural_net.cost
+::: src.cost
 ## Section 6. metrics
-::: neural_net.metrics
+::: src.metrics
 ## Section 7. database management
-::: neural_net.db
+::: src.db
 ## Section 8. data preparation functions
-::: neural_net.pipeline
+::: src.pipeline
 ## 9. Class Models used to build other classes
-::: neural_net.model
+::: src.model
 ## 10. Utility functions
-::: neural_net.utils
+::: src.utils

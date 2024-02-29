@@ -24,15 +24,17 @@ class binaryCrossEntropy(Cost):
             Computes the derivative function values.
 
     Example:
-        >>> y_true = numpy.array([[0], [1], [1], [0]])
-        >>> predicted_probs = numpy.array([[0.2], [0.8], [0.6], [0.3]])
-        >>> bce_loss = binaryCrossEntropy()
-        >>> loss_value = bce_loss.compute(y_true, predicted_probs)
-        >>> print(f"Binary Cross-Entropy Loss: {loss_value:.4f}")
-        Binary Cross-Entropy Loss: 0.3284
-        >>> derivative_values = bce_loss.pr()
-        >>> print(f"Derivative Function Values: {derivative_values}")
-        Derivative Function Values: [ 1.25       -1.25       -1.66666667  1.42857143]
+        ```python
+                >>> y_true = numpy.array([[0], [1], [1], [0]])
+                >>> predicted_probs = numpy.array([[0.2], [0.8], [0.6], [0.3]])
+                >>> bce_loss = binaryCrossEntropy()
+                >>> loss_value = bce_loss.compute(y_true, predicted_probs)
+                >>> print(f"Binary Cross-Entropy Loss: {loss_value:.4f}")
+                Binary Cross-Entropy Loss: 0.3284
+                >>> derivative_values = bce_loss.pr()
+                >>> print(f"Derivative Function Values: {derivative_values}")
+                Derivative Function Values: [ 1.25       -1.25       -1.66666667  1.42857143]
+        ```
     """    
     def __init__(self,Architecture_id=None) -> None:
         self + locals()
@@ -73,27 +75,29 @@ class CrossEntropy(Cost):
             Computes the derivative function values.
 
     Example:
-        >>> y_true = numpy.array([[1, 0, 0],
-        ...        [0, 1, 0],
-        ...        [0, 0, 1],
-        ...        [0, 1, 0],
-        ...        [1, 0, 0]])
-        >>> predicted_probs = numpy.array([[0, 0.6, 0.3],
-        ...                                [0.4, 0.2, 0.4],
-        ...                                [0.2, 0.3, 0.5],
-        ...                                [0.5, 0.1, 0.4],
-        ...                                [0.3, 0.4, 0.3]])
-        >>> ce_loss = CrossEntropy()
-        >>> loss_value = ce_loss.compute(y_true, predicted_probs)
-        >>> print(f"Cross-Entropy Loss: {loss_value:.4f}")
-        Cross-Entropy Loss: 1.7915
-        >>> derivative_values = ce_loss.pr()
-        >>> print(f"Derivative Function Values: {derivative_values}")
-        Derivative Function Values: array([[-1.00000000e+07,  2.50000000e+00,  1.42857143e+00],
-       [ 1.66666667e+00, -5.00000000e+00,  1.66666667e+00],
-       [ 1.25000000e+00,  1.42857143e+00, -2.00000000e+00],
-       [ 2.00000000e+00, -1.00000000e+01,  1.66666667e+00],
-       [-3.33333333e+00,  1.66666667e+00,  1.42857143e+00]])
+        ```python
+                >>> y_true = numpy.array([[1, 0, 0],
+                ...        [0, 1, 0],
+                ...        [0, 0, 1],
+                ...        [0, 1, 0],
+                ...        [1, 0, 0]])
+                >>> predicted_probs = numpy.array([[0, 0.6, 0.3],
+                ...                                [0.4, 0.2, 0.4],
+                ...                                [0.2, 0.3, 0.5],
+                ...                                [0.5, 0.1, 0.4],
+                ...                                [0.3, 0.4, 0.3]])
+                >>> ce_loss = CrossEntropy()
+                >>> loss_value = ce_loss.compute(y_true, predicted_probs)
+                >>> print(f"Cross-Entropy Loss: {loss_value:.4f}")
+                Cross-Entropy Loss: 1.7915
+                >>> derivative_values = ce_loss.pr()
+                >>> print(f"Derivative Function Values: {derivative_values}")
+                Derivative Function Values: array([[-1.00000000e+07,  2.50000000e+00,  1.42857143e+00],
+               [ 1.66666667e+00, -5.00000000e+00,  1.66666667e+00],
+               [ 1.25000000e+00,  1.42857143e+00, -2.00000000e+00],
+               [ 2.00000000e+00, -1.00000000e+01,  1.66666667e+00],
+               [-3.33333333e+00,  1.66666667e+00,  1.42857143e+00]])
+        ```
     """
     def __init__(self,Architecture_id=None) -> None:
         self + locals()
@@ -134,18 +138,20 @@ class MSE(Cost):
             Computes the derivative function values.
 
     Example:
-        >>> y_true = numpy.array([[2.0], [3.5], [5.0], [4.2]])
-        >>> predicted_values = numpy.array([[1.8], [3.2], [4.8], [4.0]])
-        >>> mse_loss = MSE()
-        >>> loss_value = mse_loss.compute(y_true, predicted_values)
-        >>> print(f"Mean Squared Error Loss: {loss_value:.4f}")
-        Mean Squared Error Loss:  0.0525
-        >>> derivative_values = mse_loss.pr()
-        >>> print(f"Derivative Function Values: {derivative_values}")
-        Derivative Function Values: [[-0.4]
-        [-0.6]
-        [-0.4]
-        [-0.4]]
+        ```python
+                >>> y_true = numpy.array([[2.0], [3.5], [5.0], [4.2]])
+                >>> predicted_values = numpy.array([[1.8], [3.2], [4.8], [4.0]])
+                >>> mse_loss = MSE()
+                >>> loss_value = mse_loss.compute(y_true, predicted_values)
+                >>> print(f"Mean Squared Error Loss: {loss_value:.4f}")
+                Mean Squared Error Loss:  0.0525
+                >>> derivative_values = mse_loss.pr()
+                >>> print(f"Derivative Function Values: {derivative_values}")
+                Derivative Function Values: [[-0.4]
+                [-0.6]
+                [-0.4]
+                [-0.4]]
+        ```
     """ 
     def __init__(self,Architecture_id=None) -> None:
         self + locals()

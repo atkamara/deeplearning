@@ -24,35 +24,35 @@ class accuracy(Metrics):
 
     Example:
     ```python
-        >>> acc = accuracy(threshold=0.6)
-        >>> y_true = numpy.array([[1], [0], [1], [0]])
-        >>> y_pred = numpy.array([[0.8], [0.3], [0.9], [0.5]])
-        >>> val = acc.compute(y_true, y_pred)
-        >>> print(f"Accuracy: {val:.4f}")
-        Accuracy: 1.0000
-        >>> y_true_multiclass = numpy.array([[0, 0, 1],
-        ...        [0, 1, 0],
-        ...        [1, 0, 0],
-        ...        [0, 0, 1],
-        ...        [0, 1, 0],
-        ...        [1, 0, 0],
-        ...        [0, 1, 0],
-        ...        [0, 0, 1]])
-        >>> y_pred_multiclass = numpy.array([
-        ...     [0.1, 0.2, 0.7],  # Predicted probabilities for class 0
-        ...     [0.6, 0.3, 0.1],  # Predicted probabilities for class 1
-        ...     [0.8, 0.1, 0.1],  # Predicted probabilities for class 2
-        ...     [0.2, 0.3, 0.5],
-        ...     [0.4, 0.4, 0.2],
-        ...     [0.7, 0.2, 0.1],
-        ...     [0.3, 0.4, 0.3],
-        ...     [0.1, 0.2, 0.7]
-        ... ])
-        >>> model_multiclass = accuracy(threshold=0.5)
-        >>> acc_multiclass = model_multiclass.compute(y_true_multiclass, y_pred_multiclass)
-        >>> print(f"Accuracy (multiclass): {acc_multiclass:.4f}")
-        Accuracy (multiclass): 0.7500
-        ```
+            >>> acc = accuracy(threshold=0.6)
+            >>> y_true = numpy.array([[1], [0], [1], [0]])
+            >>> y_pred = numpy.array([[0.8], [0.3], [0.9], [0.5]])
+            >>> val = acc.compute(y_true, y_pred)
+            >>> print(f"Accuracy: {val:.4f}")
+            Accuracy: 1.0000
+            >>> y_true_multiclass = numpy.array([[0, 0, 1],
+            ...        [0, 1, 0],
+            ...        [1, 0, 0],
+            ...        [0, 0, 1],
+            ...        [0, 1, 0],
+            ...        [1, 0, 0],
+            ...        [0, 1, 0],
+            ...        [0, 0, 1]])
+            >>> y_pred_multiclass = numpy.array([
+            ...     [0.1, 0.2, 0.7],  # Predicted probabilities for class 0
+            ...     [0.6, 0.3, 0.1],  # Predicted probabilities for class 1
+            ...     [0.8, 0.1, 0.1],  # Predicted probabilities for class 2
+            ...     [0.2, 0.3, 0.5],
+            ...     [0.4, 0.4, 0.2],
+            ...     [0.7, 0.2, 0.1],
+            ...     [0.3, 0.4, 0.3],
+            ...     [0.1, 0.2, 0.7]
+            ... ])
+            >>> model_multiclass = accuracy(threshold=0.5)
+            >>> acc_multiclass = model_multiclass.compute(y_true_multiclass, y_pred_multiclass)
+            >>> print(f"Accuracy (multiclass): {acc_multiclass:.4f}")
+            Accuracy (multiclass): 0.7500
+    ```
 
     """
     def __init__(self,threshold = .5) -> None:

@@ -1,3 +1,6 @@
+Building neural networks
+========================
+
 # Creating a Sequential Neural Network
 
 ## 1. Import all modules from neural_net package

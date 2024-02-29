@@ -41,9 +41,11 @@ def unfold(d: dict) -> dict:
         dict: Unfolded dictionary with concatenated keys.
     
     Example:
-        >>> d = {'a':1,'b':{'c':2,'d':4}}
-        >>> unfold(d)
-        {'a': 1, 'b_c': 2, 'b_d': 4}
+    ```python
+            >>> d = {'a':1,'b':{'c':2,'d':4}}
+            >>> unfold(d)
+            {'a': 1, 'b_c': 2, 'b_d': 4}
+    ```
     """
     new_d = {}
     for k in d:

@@ -21,10 +21,12 @@ class Sequential(Architecture):
             cost (Cost): A Cost object for computing cost information.
 
         Example:
-            layer1 = Fullyconnected(2,50,init_funcs.zeros)
-            layer2 = Activation(activation.LeakyReLU)
-            my_cost = binaryCrossEntropy
-            my_instance = Sequential(steps=[layer1, layer2], cost=my_cost)
+        ```python
+                layer1 = Fullyconnected(2,50,init_funcs.zeros)
+                layer2 = Activation(activation.LeakyReLU)
+                my_cost = binaryCrossEntropy
+                my_instance = Sequential(steps=[layer1, layer2], cost=my_cost)
+        ```
         """
         self + locals()
         self['cost'] = self['cost'](self['id'])
@@ -43,24 +45,26 @@ class Sequential(Architecture):
             metrics (Metrics): Metrics object that computes evaluation metrics (e.g., accuracy).
 
         Example:
-            from neural_net import *
-            # generate your training data
-            >>> n,k = 5000,2
-            >>> X_train = numpy.random.uniform(-100,100,size=(n,k))
-            >>> y_train =( (X_train[:, 0]**2 + X_train[:, 1]**2)/numpy.pi < 1000).reshape(-1,1)+0 
-            >>> NN = architecture.Sequential(
-                     [
+        ```python
+                from neural_net import *
+                # generate your training data
+                >>> n,k = 5000,2
+                >>> X_train = numpy.random.uniform(-100,100,size=(n,k))
+                >>> y_train =( (X_train[:, 0]**2 + X_train[:, 1]**2)/numpy.pi < 1000).reshape(-1,1)+0 
+                >>> NN = architecture.Sequential(
+                         [
 
-                       layers.Fullyconnected(2,50,init_funcs.XHsigmoiduniform) ,
-                       layers.Activation(activation.σ),
-                       layers.Fullyconnected(50,1,init_funcs.XHsigmoiduniform) ,
-                       layers.Activation(activation.σ),
+                           layers.Fullyconnected(2,50,init_funcs.XHsigmoiduniform) ,
+                           layers.Activation(activation.σ),
+                           layers.Fullyconnected(50,1,init_funcs.XHsigmoiduniform) ,
+                           layers.Activation(activation.σ),
 
 
-                    ],
-                    cost = cost.binaryCrossEntropy
-                )
-            >>> NN.train(X_train, y_train,metrics=metrics.accuracy))
+                        ],
+                        cost = cost.binaryCrossEntropy
+                    )
+                >>> NN.train(X_train, y_train,metrics=metrics.accuracy))
+        ```
         """
         Xys = batch or [(X,y)]
         epochs = tqdm.tqdm(range(epochs))
