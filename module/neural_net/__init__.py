@@ -22,3 +22,6 @@ from . import db
 from . import pipeline
 from . import model
 from . import utils
+
+__version__ = "0.1.0"
+__author__ = 'Abdourahmane Tintou Kamara'

@@ -1,7 +1,4 @@
-from setuptools import setup
-
-description ="""
- Neural Network v0.1.0
+Neural Network v0.1.1
 =====================
 <a href="https://ibb.co/mGcm59P"><img src="https://i.ibb.co/dr5S4PH/nn.png" alt="nn" border="0"></a>
 # [Documentation](https://atkamara.github.io/NeuralNetv0.1.0/)
@@ -51,18 +48,3 @@ ann_sigmoid.train(X,y,metrics=metrics.accuracy)
 ```python
 ann_sigmoid.predict(X)
 ```
-""" 
-
-setup(
-    name="neural_net_numpy",
-    version="0.1.0",
-    author="Abdourahmane Tintou KAMARA",
-    author_email="abdourahmane29@outlook.com",
-    packages=["src"],
-    long_description=description, 
-    long_description_content_type="text/markdown",
-    url="https://github.com/atkamara/deeplearning/tree/main/Neural%20Net%20v0.1.0", 
-    license='MIT', 
-    python_requires='>=3.8', 
-    install_requires=["tqdm>=4.66.2","numpy>=1.26.4","SQLAlchemy>=2.0.27","pandas>=2.2.1"]
-)
