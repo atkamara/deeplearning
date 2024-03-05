@@ -14,6 +14,8 @@ from .db import DBmanager,get_instance,update_instance,tables
 
 class Define(DBmanager):
 
+    __store = False
+
     def __repr__(self) -> str:
         """
         Returns the name of the class.
@@ -36,12 +38,13 @@ class Define(DBmanager):
         """
         loc = unfold(loc)
         self._id = {'id':id(self),f'{str(self)}_id':id(self),'name':repr(self),**loc}
-        if not hasattr(self,'table'):
-            self.table = get_instance(self)
-            self.add_table(self.table)
-        else:
-            update_instance(self)
-            self.commit()
+        if Define._Define__store:
+            if not hasattr(self,'table'):
+                self.table = get_instance(self)
+                self.add_table(self.table)
+            else:
+                update_instance(self)
+                self.commit()
 
     def __getitem__(self,ix) -> any:
         return self.id[ix]
@@ -85,7 +88,10 @@ class Define(DBmanager):
             return self['steps'][self.c-1]
         self.c = 0
         raise StopIteration   
-    
+    def commit(self) -> None:
+        if Define._Define__store:
+            DBmanager.session.commit()
+
 
     def predict(self,X:numpy.array) -> numpy.array:
         """
@@ -163,30 +169,32 @@ class Neurons(Define):
         """
         Instantiate weight tables
         """
-        table,cols = tables['Weight']
-        self.Wtables = []
-        for i,r in enumerate(self.W):
-            instances = []
-            for j,e in enumerate(r):
-                instances += [
+        if Define._Define__store:
+            table,cols = tables['Weight']
+            self.Wtables = []
+            for i,r in enumerate(self.W):
+                instances = []
+                for j,e in enumerate(r):
+                    instances += [
 
-                    table(Weight_id=f'{i}_{j}',
-                          value=e,
-                          Neurons_id=self['id']
-                          )
-                ]
-            self.Wtables += [instances]
-            instances = []
-        Neurons.with_weights += [self]
+                        table(Weight_id=f'{i}_{j}',
+                            value=e,
+                            Neurons_id=self['id']
+                            )
+                    ]
+                self.Wtables += [instances]
+                instances = []
+            Neurons.with_weights += [self]
 
 
     def storeW(self):
         """
         Stores weights tables
         """
-        for row in self.Wtables:
-            for table in row:
-                self.add_table(table)
+        if Define._Define__store:
+            for row in self.Wtables:
+                for table in row:
+                    self.add_table(table)
 
     def __str__(self) -> str:
         return 'Neurons'

@@ -7,6 +7,7 @@ Provides utility functions
 """
 import numpy,os,pandas
 import datetime,tqdm
+from typing import Literal
 
 
 def get_module_path(dir: list[str]) -> str:

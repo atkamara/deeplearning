@@ -1,5 +1,5 @@
 """
-    This modules provides sqlalchemy orm tables and utility objects
+    This module provides sqlalchemy orm tables and utility objects
 
     - `DefaultTable` - generic table template
     - `Architecture` - Architecture table
@@ -92,14 +92,11 @@ class DBmanager:
 	"""
     Manages database connections and sessions using SQLAlchemy.
 
-    Args:
-        db (str, optional): Path to database server or SQLite database file. Defaults to None.
-
     Attributes:
         session (Session): SQLAlchemy session for database operations.
 
     Methods:
-		_DBmanager__start()-> None:
+		__start(db : str=None)-> None:
 			Starts a session
         add_table(table: DefaultTable) -> None:
             Adds a table instance to the current session.
@@ -110,18 +107,29 @@ class DBmanager:
 	status = False
 
 	def __start(db : str=None)-> None:
+		"""
+		Starts a session
+		
+		Args:
+       		 db (str, optional): Path to database server or SQLite database file. Defaults to None.
+		
+		"""
 		db_path = db or f'sqlite:///{get_module_path(["run",f"model{now()}.db"])}'
-		DBmanager.path =db_path
-		DBmanager.engines[DBmanager.path] = create_engine(DBmanager.path)
-		Base.metadata.create_all(DBmanager.engines[DBmanager.path])
-		Session = sessionmaker(bind=DBmanager.engines[DBmanager.path])
+		DBmanager.db_path =db_path
+		DBmanager.engines[DBmanager.db_path] = create_engine(DBmanager.db_path)
+		Base.metadata.create_all(DBmanager.engines[DBmanager.db_path])
+		Session = sessionmaker(bind=DBmanager.engines[DBmanager.db_path])
 		DBmanager.session = Session()
 			
 	def add_table(self,table:DefaultTable) -> None:
+		"""
+		Adds a table instance to the current session.
+
+		Args:
+			table (DefaultTable): An instance of table object
+
+		"""
 		if not DBmanager.status : 
 			DBmanager._DBmanager__start()
 			DBmanager.status = True
 		DBmanager.session.add(table)
-
-	def commit(self) -> None:
-		DBmanager.session.commit()

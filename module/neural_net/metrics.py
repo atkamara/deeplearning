@@ -1,7 +1,8 @@
 """
-    This modules provides metrics classes
+    This module provides metrics classes
 
     - `accuracy` 
+    - `MAE`
 
 """
 
@@ -81,6 +82,53 @@ class accuracy(Metrics):
             p = (p>self.threshold) + 0
         self.y,self.p = y,p
         return ((self.y==self.p).sum()/len(self.y)).round(4)
+
+class MAE(Metrics):
+    r"""
+    Mean Absolute Error (MAE) .
+
+    This class computes the mean absolute error loss between true labels (y) and predicted values (p).
+
+    $$
+    \displaystyle \operatorname {MAE} ={\frac {1}{n}}\sum _{i=1}^{n}\left|y_{i}-{\hat {y_{i}}}\right|
+    $$
+
+    Methods:
+        - compute(y: numpy.array, p: numpy.array) -> float:
+            Computes the mean absolute error.
+
+    Example:
+        ```python
+                >>> y_true = numpy.array([[2.0], [3.5], [5.0], [4.2]])
+                >>> predicted_values = numpy.array([[1.8], [3.2], [4.8], [4.0]])
+                >>> mae_loss = MAE()
+                >>> loss_value = mae_loss.compute(y_true, predicted_values)
+                >>> print(f"Mean Squared Error Loss: {loss_value:.4f}")
+                Mean Squared Error Loss:  0.0525
+                >>> derivative_values = mse_loss.pr()
+                >>> print(f"Derivative Function Values: {derivative_values}")
+                Derivative Function Values: [[-0.4]
+                [-0.6]
+                [-0.4]
+                [-0.4]]
+        ```
+    """ 
+    def __init__(self,Architecture_id=None) -> None:
+        self + locals()
+    def compute(self,y: numpy.array,p: numpy.array) -> float:
+        """
+        Computes the mean absolute error loss.
+
+        Args:
+            y (numpy.array): True labels (ground truth).
+            p (numpy.array): Predicted values.
+
+        Returns:
+            float: Mean absolute error value.
+        """
+        self.y,self.p = y,p
+        return numpy.abs(self.y-self.p).mean()
+
 
 class Empty:
     def __repr__(self):return ''

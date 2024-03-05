@@ -1,5 +1,5 @@
 """
-    This modules provides functions for data preparation
+    This module provides functions for data preparation
 
     - `Batch` - feed data in chunks
     - `shuffle` - shuffles train sets
@@ -66,13 +66,16 @@ class Batch:
     def __init__(self,size: int, obs: int, X: callable, y :callable) -> None:
         """
         Initialize a Batch object.      
+
         Args:
             size (int): Size of each batch.
             obs (int): Total sample size.
             X (numpy.array): function providing access to Numpy array containing features.
-            y (numpy.array): function providing access to Numpy array containing target variable.     
+            y (numpy.array): function providing access to Numpy array containing target variable.    
+
         Returns:
             None        
+            
         Example:
         ```python
                 >>> def get_X():

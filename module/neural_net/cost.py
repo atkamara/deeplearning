@@ -1,5 +1,5 @@
 """
-    This modules provides classes for several types of cost functions
+    This module provides classes for several types of cost functions
 
     - `binaryCrossEntropy` 
     - `CrossEntropy` 
@@ -10,10 +10,15 @@ from .utils import numpy
 from .model import Cost
 
 
-class binaryCrossEntropy(Cost):
-    """
+class BinaryCrossEntropy(Cost):
+    r"""
     Binary Cross-Entropy Loss.
-
+    $$
+    \mathrm{\mathit{Binary\ Cross\ Entropy}}(p, y) = \begin{cases}
+    -\log(p) & \text{if } y = 1, \\
+    -\log(1-p) & \text{otherwise.}
+    \end{cases}
+    $$    
     This class computes the binary cross-entropy loss between true labels (y) and predicted probabilities (p).
 
     Methods:
@@ -62,11 +67,14 @@ class binaryCrossEntropy(Cost):
         return -(self.y*numpy.log(self.p) + (1-self.y)*numpy.log(1-self.p)).mean()
    
 class CrossEntropy(Cost):
-    """
+    r"""
     Cross-Entropy Loss.
 
     This class computes the cross-entropy loss between true labels (y) and predicted probabilities (p).
-
+    $$
+    Cross\ Entropy(p,y) = -\sum _{i}\sum _{j}y_{ij}\log p_{ij}\ 
+    $$
+    
     Methods:
         - compute(y: numpy.array, p: numpy.array) -> float:
             Computes the cross-entropy loss.
@@ -125,10 +133,14 @@ class CrossEntropy(Cost):
         return -(self.y*numpy.log(self.p) + (1-self.y)*numpy.log(1-self.p)).mean()
         
 class MSE(Cost):
-    """
+    r"""
     Mean Squared Error (MSE) Loss.
 
     This class computes the mean squared error loss between true labels (y) and predicted values (p).
+
+    $$
+    \displaystyle \operatorname {MSE} ={\frac {1}{n}}\sum _{i=1}^{n}\left(y_{i}-{\hat {y_{i}}}\right)^{2}
+    $$
 
     Methods:
         - compute(y: numpy.array, p: numpy.array) -> float:

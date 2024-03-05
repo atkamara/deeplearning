@@ -12,26 +12,36 @@
 9. Class Models used to build other classes
 10. Utility functions
 
+
 ## Introduction
 This reference page provides an overview of all functions, classes and methods available in the neural_net project
 
 ## Section 1. layers
-::: src.layers
+::: neural_net.layers
+
 ## Section 2. activation functions
-::: src.activation
+::: neural_net.activation
+
 ## Section 3. neural network architectures
-::: src.architecture
+::: neural_net.architecture
+
 ## Section 4. initialisation functions
-::: src.init_funcs
+::: neural_net.init_funcs
+
 ## Section 5. cost functions
-::: src.cost
+::: neural_net.cost
+
 ## Section 6. metrics
-::: src.metrics
+::: neural_net.metrics
+
 ## Section 7. database management
-::: src.db
+::: neural_net.db
+
 ## Section 8. data preparation functions
-::: src.pipeline
+::: neural_net.pipeline
+
 ## 9. Class Models used to build other classes
-::: src.model
+::: neural_net.model
+
 ## 10. Utility functions
-::: src.utils
+::: neural_net.utils

@@ -11,3 +11,13 @@ nav:
   - Neural net docs: index.md
   - How-To Guides: how-to-guides.md
   - Reference: reference.md
+
+markdown_extensions:
+  - extra
+  - tables
+  - fenced_code
+  - mdx_math
+
+extra_javascript:
+  - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML
+  - javascripts/mathjaxhelper.js

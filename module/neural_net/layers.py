@@ -1,5 +1,5 @@
 """
-    This modules provides Layer classes
+    This module provides Layer classes
 
     - `Fullyconnected` 
     - `Activation` 

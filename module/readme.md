@@ -1,7 +1,7 @@
-Neural Network v0.1.1
+Neural Network v0.1.4
 =====================
 <a href="https://ibb.co/mGcm59P"><img src="https://i.ibb.co/dr5S4PH/nn.png" alt="nn" border="0"></a>
-# [Documentation](https://atkamara.github.io/NeuralNetv0.1.0/)
+# [Documentation](https://atkamara.github.io/NeuralNetv0.1.4/)
 # Quick start
 
 ## 1. Import all modules from neural_net package
