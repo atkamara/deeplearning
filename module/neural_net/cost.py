@@ -51,19 +51,20 @@ class BinaryCrossEntropy(Cost):
             numpy.array: Derivative function values.
         """
         return -(self.y/self.p - (1-self.y)/(1-self.p))
-    def compute(self,y: numpy.array,p: numpy.array) -> float:
+    def compute(self,y: numpy.array,p: numpy.array,clip : bool=True) -> float:
         """
         Computes the binary cross-entropy loss.
 
         Args:
             y (numpy.array): True labels (0 or 1).
             p (numpy.array): Predicted probabilities (between 0 and 1).
+            clip (bool): Whether or not to clip predicted values see method clip
 
         Returns:
             float: Binary cross-entropy loss value.
         """
         self.y,self.p = y,p
-        self.clip()
+        if clip:self.clip()
         return -(self.y*numpy.log(self.p) + (1-self.y)*numpy.log(1-self.p)).mean()
    
 class CrossEntropy(Cost):
@@ -117,19 +118,21 @@ class CrossEntropy(Cost):
             numpy.array: Derivative function values.
         """
         return -(self.y/self.p - (1-self.y)/(1-self.p)) 
-    def compute(self,y: numpy.array,p: numpy.array) -> float:
+    def compute(self,y: numpy.array,p: numpy.array,clip : bool=True) -> float:
         """
         Computes the Cross-entropy loss.
 
         Args:
             y (numpy.array): True labels (0 or 1).
             p (numpy.array): Predicted probabilities (between 0 and 1).
+            clip (bool): Whether or not to clip predicted values see method clip
+
 
         Returns:
             float: Cross-entropy loss value.
         """
         self.y,self.p = y,p
-        self.clip()
+        if clip:self.clip()
         return -(self.y*numpy.log(self.p) + (1-self.y)*numpy.log(1-self.p)).mean()
         
 class MSE(Cost):
