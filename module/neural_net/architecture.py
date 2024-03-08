@@ -33,14 +33,14 @@ class Sequential(Architecture):
         self + locals()
         self['cost'] = self['cost'](self['id'])
         self.commit()
-    def train(self,X:numpy.array=None,y:numpy.array=None,batch:Batch=None,epochs: int = 100, α: float = 0.001,metrics : Metrics=Empty ) -> None:
+    def train(self,X:numpy.ndarray=None,y:numpy.ndarray=None,batch:Batch=None,epochs: int = 100, α: float = 0.001,metrics : Metrics=Empty ) -> None:
         """
         Trains a neural network model using sequential architecture
 
         Args:
-            X (numpy.array): Matrix of training features with shape (n, k), where n is the number of samples
+            X (numpy.ndarray): Matrix of training features with shape (n, k), where n is the number of samples
                               and k is the number of features.
-            y (numpy.array): Target variable with shape (n, 1).
+            y (numpy.ndarray): Target variable with shape (n, 1).
             batch (Optional[Batch]): Optional Batch object that generates batches from the training data.
             epochs (int): Maximum number of training epochs.
             α (float): Learning rate (step size for weight updates).

@@ -64,13 +64,13 @@ class accuracy(Metrics):
             threshold (float, optional): Threshold value for binary classification. Defaults to 0.5.
         """
         self.threshold = threshold
-    def compute(self,y: numpy.array,p: numpy.array) -> float:
+    def compute(self,y: numpy.ndarray,p: numpy.ndarray) -> float:
         """
         Computes the accuracy of predictions.
 
         Args:
-            y (numpy.array): True labels (ground truth).
-            p (numpy.array): Predicted values.
+            y (numpy.ndarray): True labels (ground truth).
+            p (numpy.ndarray): Predicted values.
 
         Returns:
             float: accuracy value.
@@ -94,7 +94,7 @@ class MAE(Metrics):
     $$
 
     Methods:
-        - compute(y: numpy.array, p: numpy.array) -> float:
+        - compute(y: numpy.ndarray, p: numpy.ndarray) -> float:
             Computes the mean absolute error.
 
     Example:
@@ -115,13 +115,13 @@ class MAE(Metrics):
     """ 
     def __init__(self,Architecture_id=None) -> None:
         self + locals()
-    def compute(self,y: numpy.array,p: numpy.array) -> float:
+    def compute(self,y: numpy.ndarray,p: numpy.ndarray) -> float:
         """
         Computes the mean absolute error loss.
 
         Args:
-            y (numpy.array): True labels (ground truth).
-            p (numpy.array): Predicted values.
+            y (numpy.ndarray): True labels (ground truth).
+            p (numpy.ndarray): Predicted values.
 
         Returns:
             float: Mean absolute error value.

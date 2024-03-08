@@ -22,10 +22,10 @@ class BinaryCrossEntropy(Cost):
     This class computes the binary cross-entropy loss between true labels (y) and predicted probabilities (p).
 
     Methods:
-        - compute(y: numpy.array, p: numpy.array) -> float:
+        - compute(y: numpy.ndarray, p: numpy.ndarray) -> float:
             Computes the binary cross-entropy loss.
 
-        - pr(y: numpy.array, p: numpy.array) -> numpy.array:
+        - pr(y: numpy.ndarray, p: numpy.ndarray) -> numpy.ndarray:
             Computes the derivative function values.
 
     Example:
@@ -43,21 +43,21 @@ class BinaryCrossEntropy(Cost):
     """    
     def __init__(self,Architecture_id=None) -> None:
         self + locals()
-    def pr(self) -> numpy.array:
+    def pr(self) -> numpy.ndarray:
         """
         Computes the derivative function values  with respet to p.
 
         Returns:
-            numpy.array: Derivative function values.
+            numpy.ndarray: Derivative function values.
         """
         return -(self.y/self.p - (1-self.y)/(1-self.p))
-    def compute(self,y: numpy.array,p: numpy.array,clip : bool=True) -> float:
+    def compute(self,y: numpy.ndarray,p: numpy.ndarray,clip : bool=True) -> float:
         """
         Computes the binary cross-entropy loss.
 
         Args:
-            y (numpy.array): True labels (0 or 1).
-            p (numpy.array): Predicted probabilities (between 0 and 1).
+            y (numpy.ndarray): True labels (0 or 1).
+            p (numpy.ndarray): Predicted probabilities (between 0 and 1).
             clip (bool): Whether or not to clip predicted values see method clip
 
         Returns:
@@ -77,10 +77,10 @@ class CrossEntropy(Cost):
     $$
     
     Methods:
-        - compute(y: numpy.array, p: numpy.array) -> float:
+        - compute(y: numpy.ndarray, p: numpy.ndarray) -> float:
             Computes the cross-entropy loss.
 
-        - pr() -> numpy.array:
+        - pr() -> numpy.ndarray:
             Computes the derivative function values.
 
     Example:
@@ -110,22 +110,22 @@ class CrossEntropy(Cost):
     """
     def __init__(self,Architecture_id=None) -> None:
         self + locals()
-    def pr(self) -> numpy.array:
+    def pr(self) -> numpy.ndarray:
         """
         Computes the derivative function values  with respet to p .
 
         Returns:
-            numpy.array: Derivative function values.
+            numpy.ndarray: Derivative function values.
         """
         return -(self.y/self.p - (1-self.y)/(1-self.p)) 
-    def compute(self,y: numpy.array,p: numpy.array,clip : bool=True) -> float:
+    def compute(self,y: numpy.ndarray,p: numpy.ndarray,clip : bool=True) -> float:
         """
         Computes the Cross-entropy loss.
 
         Args:
-            y (numpy.array): True labels (0 or 1).
-            p (numpy.array): Predicted probabilities (between 0 and 1).
-            clip (bool): Whether or not to clip predicted values see method clip
+            y (numpy.ndarray): True labels (0 or 1).
+            p (numpy.ndarray): Predicted probabilities (between 0 and 1).
+            clip (bool): Whether or not to clip predicted values see method clip.
 
 
         Returns:
@@ -146,10 +146,10 @@ class MSE(Cost):
     $$
 
     Methods:
-        - compute(y: numpy.array, p: numpy.array) -> float:
+        - compute(y: numpy.ndarray, p: numpy.ndarray) -> float:
             Computes the mean squared error loss.
 
-        - pr() -> numpy.array:
+        - pr() -> numpy.ndarray:
             Computes the derivative function values.
 
     Example:
@@ -170,21 +170,21 @@ class MSE(Cost):
     """ 
     def __init__(self,Architecture_id=None) -> None:
         self + locals()
-    def pr(self) -> numpy.array:
+    def pr(self) -> numpy.ndarray:
         """
         Computes the derivative function values  with respet to p .
 
         Returns:
-            numpy.array: Derivative function values.
+            numpy.ndarray: Derivative function values.
         """
         return -2*(self.y-self.p)
-    def compute(self,y: numpy.array,p: numpy.array) -> float:
+    def compute(self,y: numpy.ndarray,p: numpy.ndarray) -> float:
         """
         Computes the mean squared error loss.
 
         Args:
-            y (numpy.array): True labels (ground truth).
-            p (numpy.array): Predicted values.
+            y (numpy.ndarray): True labels (ground truth).
+            p (numpy.ndarray): Predicted values.
 
         Returns:
             float: Mean squared error loss value.

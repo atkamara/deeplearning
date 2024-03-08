@@ -8,7 +8,7 @@
 """
 from .utils import numpy,Literal
 
-def zeros(n_in: int, n_out: int,biais: bool=True) -> numpy.array:
+def zeros(n_in: int, n_out: int,biais: bool=True) -> numpy.ndarray:
     """
     Initializes a weight matrix with zeros.
 
@@ -18,7 +18,7 @@ def zeros(n_in: int, n_out: int,biais: bool=True) -> numpy.array:
         biais (bool): if True adds biais weights
 
     Returns:
-        numpy.array: Weight matrix of shape (n_in + 1, n_out).
+        numpy.ndarray: Weight matrix of shape (n_in + 1, n_out).
     """
     return numpy.zeros((n_in+biais,n_out))
 
@@ -76,7 +76,7 @@ class XavierHe:
         self.distribution = distribution        
 
 
-def XHsigmoiduniform(n_in: int, n_out: int,biais: bool=True) -> numpy.array:
+def XHsigmoiduniform(n_in: int, n_out: int,biais: bool=True) -> numpy.ndarray:
     """
     A function representing weight initialization using Xavier (Glorot) initialization
     for sigmoid activation functions.
@@ -87,12 +87,12 @@ def XHsigmoiduniform(n_in: int, n_out: int,biais: bool=True) -> numpy.array:
         biais (bool): if True adds biais weights
     
     returns:
-        numpy.array : array of random values
+        numpy.ndarray : array of random values
     """
     r = (6/(n_in+n_out))**.5
     return numpy.random.uniform(low=-r,high=r,size=(n_in+biais,n_out))
 
-def XHReluuniform(n_in: int, n_out: int,biais: bool=True) -> numpy.array:
+def XHReluuniform(n_in: int, n_out: int,biais: bool=True) -> numpy.ndarray:
     """
     A function representing weight initialization using Xavier (Glorot) initialization
     for Rectified linear unit(RELU) activation functions.
@@ -103,7 +103,7 @@ def XHReluuniform(n_in: int, n_out: int,biais: bool=True) -> numpy.array:
         biais (bool): if True adds biais weights
 
     returns:
-        numpy.array : array of random values
+        numpy.ndarray : array of random values
     """
     r = 2**.5*(6/(n_in+n_out))**.5
     return numpy.random.uniform(low=-r,high=r,size=(n_in+biais,n_out))

@@ -81,6 +81,7 @@ class Define(DBmanager):
  
     def __len__(self) -> int:
         return len(self['steps'])
+        
     
     def __next__(self) -> any:
         if self.c<len(self):
@@ -93,16 +94,16 @@ class Define(DBmanager):
             DBmanager.session.commit()
 
 
-    def predict(self,X:numpy.array) -> numpy.array:
+    def predict(self,X:numpy.ndarray) -> numpy.ndarray:
         """
         Implements forward prediction of input feature matrix X of size n,k
         Passes outputs from input layer to output layer
 
         Args:
-            X (numpy.array) : input features matrix
+            X (numpy.ndarray) : input features matrix
 
         Returns:
-            numpy.array of output layer predictions
+            numpy.ndarray of output layer predictions
 
 
         """
@@ -111,13 +112,13 @@ class Define(DBmanager):
             self.out = step.func.compute(self.out)
         return self.out
 
-    def update(self,Δ:numpy.array) -> numpy.array :
+    def update(self,Δ:numpy.ndarray) -> numpy.ndarray :
         """
         Implement backpropagation of cost gradient to all layers
         Passes gradients backward
 
         Args:
-            Δ (numpy.array) : array of gradient from next step
+            Δ (numpy.ndarray) : array of gradient from next step
 
         Returns:
             numpy array of input layer gradient
@@ -199,7 +200,7 @@ class Neurons(Define):
     def __str__(self) -> str:
         return 'Neurons'
     
-    def __sub__(self,Δ:numpy.array) -> None:
+    def __sub__(self,Δ:numpy.ndarray) -> None:
         """
         Substracts Gradient to Weights
 
@@ -213,15 +214,15 @@ class Neurons(Define):
         return self.X.shape[0]
 
 
-    def grad(self,Δ:numpy.array) -> numpy.array:
+    def grad(self,Δ:numpy.ndarray) -> numpy.ndarray:
         """
         Computes gradient for previous step
 
         Args:
-            Δ (numpy.array) : gradient from next step
+            Δ (numpy.ndarray) : gradient from next step
         
         Returns:
-            numpy.array of gradient for previous step
+            numpy.ndarray of gradient for previous step
         
         """
         self.Δ = self.pr()*Δ

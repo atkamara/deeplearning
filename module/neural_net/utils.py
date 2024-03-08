@@ -12,12 +12,40 @@ import requests
 from typing import Union
 import matplotlib.pyplot as plt
 
+class Boostrap:
+    def __init__(self,data:Union[numpy.ndarray,tuple],sample_size:int=100,n_sample:int=100):
+        self.not_tuple = False
+        if isinstance(data,numpy.ndarray): 
+            self.not_tuple = True
+            data = (data)
+        self.data = data
+        self.n = len(self.data[0])
+        self.sample_size = sample_size
+        self.c = 0
+        self.n_sample = n_sample
+        self.ix = numpy.random.randint(0,self.n,size=(self.n_sample,self.sample_size))
+    def __len__(self):
+        return self.n_sample
+    def __iter__(self) : 
+        return self
+    def __next__(self):
+        if self.c < self.n_sample:
+            self.c+=1
+            ix = self.ix[self.c-1]
+            out = tuple(d[ix,:] for d in self.data)
+            if self.not_tuple:
+                out = out[0]
+            return out
+        self.c = 0
+        raise StopIteration
+
+
 class Pearson:
     """
     Computes the Pearson correlation matrix and generates a heatmap.
 
     Attributes:
-        X : numpy.array
+        X : numpy.ndarray
             The input data containing features.
         n : int
             number of observations
@@ -25,17 +53,17 @@ class Pearson:
             number of features
         cols: list
             list of fed columns
-        cov: numpy.array
+        cov: numpy.ndarray
             covariance matrix
-        var: numpy.array
+        var: numpy.ndarray
             variance matrix
-        corr: numpy.array
+        corr: numpy.ndarray
             correlation matrix
         
     Methods:
-        __init__(X:numpy.array,cols:list=None)->None:
+        __init__(X:numpy.ndarray,cols:list=None)->None:
             Initialize Pearson object
-        corr()->numpy.array:
+        corr()->numpy.ndarray:
             computes Pearson correlation matrix
         heatmap(ax=None,fontsize:int=6,digits:int=1, xrotation:Union[int,str]=45,yrotation:Union[int,str]='horizontal') -> None:
             plots correlation heatmap
@@ -58,12 +86,12 @@ class Pearson:
         >>> # Generate the heatmap
         >>> pearson_analyzer.heatmap()
     """
-    def __init__(self,X:numpy.array,cols:list=None) -> None:
+    def __init__(self,X:numpy.ndarray,cols:list=None) -> None:
         """
         Initialize Pearson object
 
         Args:
-            X:numpy.array
+            X:numpy.ndarray
                 array for which you'd like to get correlations from
             cols: list
                 list of labels for columns
@@ -72,7 +100,7 @@ class Pearson:
         self.X = X
         self.n,self.k = X.shape
         self.cols = cols or tuple(range(self.k))
-    def corr(self) -> numpy.array:
+    def corr(self) -> numpy.ndarray:
         self.cov = (v:=(self.X - self.X.mean(axis=0))).T.dot(v)/self.n
         self.var = (std:=self.X.std(axis=0)).reshape(-1,1)*std
         self.corr = self.cov/self.var
@@ -112,9 +140,9 @@ def make_circle_data(centers:list,radii:list,p:float=.2,n_grid:int=100,xmin:int=
             Maximum y limit for the data points.
 
     Returns:
-        X : numpy.array, shape (n_samples, 2)
+        X : numpy.ndarray, shape (n_samples, 2)
             2D matrix of features (coordinates of data points).
-        y : numpy.array, shape (n_samples,1)
+        y : numpy.ndarray, shape (n_samples,1)
             Labels corresponding to the data points (1 if inside a circle, 0 otherwise).
 
     Example:
@@ -163,9 +191,9 @@ class IrisDatasetDownloader:
                 raw CSV textfile
             description : str
                 Full description of iris database
-            data : numpy.array
+            data : numpy.ndarray
                 array of all features
-            target : numpy.array
+            target : numpy.ndarray
                 array of target variable
     
         Example:

@@ -21,7 +21,7 @@ class Σ(Neurons):
     where w is weights vector and b is bias
 
     Attributes:
-        W (numpy.array): Weight matrix of shape (k+1, n_out). +1 for bias
+        W (numpy.ndarray): Weight matrix of shape (k+1, n_out). +1 for bias
 
     Methods:
         compute(X):
@@ -43,34 +43,34 @@ class Σ(Neurons):
         self.Xb = lambda : numpy.c_[self.X,numpy.ones((self.n(),1))]
         self.instantiateW()
         self.storeW()
-    def pr(self)-> numpy.array:
+    def pr(self)-> numpy.ndarray:
         """
         Computes the derivative of the linear equation (matrix itself).
 
         Returns:
-            numpy.array: Derivative matrix.
+            numpy.ndarray: Derivative matrix.
         """
         return self.Xb
 
-    def compute(self,X:numpy.array) -> numpy.array:
+    def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         """
         Computes the linear combination of input matrix X and bias vector using weight matrix self.W.
 
         Args:
-            X (numpy.array): Input matrix of shape (n, k).
+            X (numpy.ndarray): Input matrix of shape (n, k).
 
         Returns:
-            numpy.array: Linear combination result of shape (n, n_out).
+            numpy.ndarray: Linear combination result of shape (n, n_out).
         """
         self.X = X
         return self.Xb().dot(self.W) 
     
-    def grad(self,Δ :numpy.array) -> numpy.array:
+    def grad(self,Δ :numpy.ndarray) -> numpy.ndarray:
         """
         Updates weights self.W and computes the gradient for backpropagation.
 
         Args:
-            Δ (numpy.array): Gradient from next activation.
+            Δ (numpy.ndarray): Gradient from next activation.
         """
         self   - (self.pr().T.dot(Δ))/self.n()
         self.Δ = Δ.dot(self.W[:-1,:].T) #-1 to remove biais
@@ -101,7 +101,7 @@ class Tanh(Neurons):
     def __init__(self,Layer:Layer=None) -> None:
         self + locals()
     
-    def pr(self) -> numpy.array:
+    def pr(self) -> numpy.ndarray:
         r"""
         Computes the derivative of the Tanh function.
 
@@ -110,11 +110,11 @@ class Tanh(Neurons):
         $$
 
         Returns:
-            numpy.array: Derivative matrix.
+            numpy.ndarray: Derivative matrix.
         """
         return 1-self.preds**2
     
-    def compute(self,X:numpy.array) -> numpy.array:
+    def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         r"""
         Computes the Tanh activation for input matrix X.
 
@@ -129,10 +129,10 @@ class Tanh(Neurons):
         $$
 
         Args:
-            X (numpy.array): Input matrix of shape (n, k).
+            X (numpy.ndarray): Input matrix of shape (n, k).
 
         Returns:
-            numpy.array: Tanh activation result of shape (n, n_out).
+            numpy.ndarray: Tanh activation result of shape (n, n_out).
         """
         self.X = X
         σ = lambda z : 1/(1+numpy.exp(-z))
@@ -159,7 +159,7 @@ class σ(Neurons):
     def __init__(self,Layer:Layer=None) -> None:
         self + locals()
     
-    def pr(self) -> numpy.array:
+    def pr(self) -> numpy.ndarray:
         r"""
         Computes the derivative of the sigmoid function.
 
@@ -168,11 +168,11 @@ class σ(Neurons):
         $$
 
         Returns:
-            numpy.array: Derivative matrix.
+            numpy.ndarray: Derivative matrix.
         """
         return self.preds*(1-self.preds)
     
-    def compute(self,X:numpy.array) -> numpy.array:
+    def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         r"""
         Computes the sigmoid activation for input matrix X  using vectorization with numpy.
 
@@ -181,10 +181,10 @@ class σ(Neurons):
         $$
 
         Args:
-            X (numpy.array): Input matrix of shape (n, k).
+            X (numpy.ndarray): Input matrix of shape (n, k).
 
         Returns:
-            numpy.array: Sigmoid activation result of shape (n, n_out).
+            numpy.ndarray: Sigmoid activation result of shape (n, n_out).
         """
         self.X = X
         self.preds = 1/(1+numpy.exp(-self.X))
@@ -211,24 +211,24 @@ class Softmax(Neurons):
     """   
     def __init__(self,Layer:Layer=None) -> None:
         self + locals()
-    def pr(self) -> numpy.array:
+    def pr(self) -> numpy.ndarray:
         """
         Computes the derivative of the Softmax function.
 
         Returns:
-            numpy.array: Derivative matrix.
+            numpy.ndarray: Derivative matrix.
         """
         return self.preds*(1-self.preds)
 
-    def compute(self,X:numpy.array) -> numpy.array:
+    def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         """
         Computes the softmax activation for input matrix X using vectorization with numpy.
 
         Args:
-            X (numpy.array): Input matrix of shape (n, k).
+            X (numpy.ndarray): Input matrix of shape (n, k).
 
         Returns:
-            numpy.array: Softmax activation result of shape (n, n_out).
+            numpy.ndarray: Softmax activation result of shape (n, n_out).
         """
         self.X = X
         self.preds = (ex:=numpy.exp(self.X))/ex.sum(axis=1).reshape(-1,1)
@@ -262,7 +262,7 @@ class ELU(Neurons):
     def __init__(self,Layer:Layer=None,α=0.001) -> None:
         self + locals()
     
-    def pr(self) -> numpy.array: 
+    def pr(self) -> numpy.ndarray: 
         r"""
         Computes the derivative of the ELU function.
 
@@ -274,19 +274,19 @@ class ELU(Neurons):
         $$
 
         Returns:
-            numpy.array: Derivative matrix.
+            numpy.ndarray: Derivative matrix.
         """
         return (neg := self.X < 0)*self.preds + neg*self['α'] + ~neg
 
-    def compute(self,X:numpy.array) -> numpy.array:
+    def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         """
         Computes the ELU activation for input matrix X.
 
         Args:
-            X (numpy.array): Input matrix of shape (n, k).
+            X (numpy.ndarray): Input matrix of shape (n, k).
 
         Returns:
-            numpy.array: ELU activation result of shape (n, n_out).
+            numpy.ndarray: ELU activation result of shape (n, n_out).
         """
         self.X = X
         self.preds = (neg := self.X<0)*self['α']*(numpy.exp(self.X)-1) + ~neg*self.X
@@ -319,7 +319,7 @@ class ReLU(Neurons):
     def __init__(self,Layer:Layer=None) -> None:
         self + locals()
     
-    def pr(self) -> numpy.array: 
+    def pr(self) -> numpy.ndarray: 
         r"""
         Computes the derivative of the ReLU function.
 
@@ -331,19 +331,19 @@ class ReLU(Neurons):
         $$
 
         Returns:
-            numpy.array: Derivative matrix.
+            numpy.ndarray: Derivative matrix.
         """
         return (self.X >= 0) + 0 #for casting bool to int
 
-    def compute(self,X:numpy.array) -> numpy.array:
+    def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         """
         Computes the ReLU activation for input matrix X.
 
         Args:
-            X (numpy.array): Input matrix of shape (n, k).
+            X (numpy.ndarray): Input matrix of shape (n, k).
 
         Returns:
-            numpy.array: ReLU activation result of shape (n, n_out).
+            numpy.ndarray: ReLU activation result of shape (n, n_out).
         """
         self.X = X
         self.preds = numpy.maximum(0,self.X)
@@ -375,7 +375,7 @@ class LeakyReLU(Neurons):
     def __init__(self,Layer:Layer=None,α:float=.001) -> None:
         self + locals()
     
-    def pr(self) -> numpy.array: 
+    def pr(self) -> numpy.ndarray: 
         r"""
         Computes the derivative of the LeakyReLU function.
         $$
@@ -386,19 +386,19 @@ class LeakyReLU(Neurons):
         $$
 
         Returns:
-            numpy.array: Derivative matrix.
+            numpy.ndarray: Derivative matrix.
         """
         return (neg:=self.X < 0)*self['α'] + ~neg
 
-    def compute(self,X:numpy.array) -> numpy.array:
+    def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         """
         Computes the LeakyReLU activation for input matrix X.
 
         Args:
-            X (numpy.array): Input matrix of shape (n, k).
+            X (numpy.ndarray): Input matrix of shape (n, k).
 
         Returns:
-            numpy.array: LeakyReLU activation result of shape (n, n_out).
+            numpy.ndarray: LeakyReLU activation result of shape (n, n_out).
         """
         self.X = X
         self.preds = (neg := self.X<0)*self['α']*self.X + ~neg*self.X

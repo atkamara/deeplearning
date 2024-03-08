@@ -34,17 +34,17 @@ def get_ix(size: int,obs: int) -> list[slice]:
     batchix = [slice(low,high) for low,high in zip(batchix,batchix[1:])]
     return batchix
 
-def shuffle(X: numpy.array,y: numpy.array) -> tuple[numpy.array,numpy.array]:
+def shuffle(X: numpy.ndarray,y: numpy.ndarray) -> tuple[numpy.ndarray,numpy.ndarray]:
     """
     shuffle features and tagert variable numpy arrays X and y using pandas.sample method.
 
     Args:
-        X (numpy.array): Matrix of training features with shape (n, k), where n is the number of samples
+        X (numpy.ndarray): Matrix of training features with shape (n, k), where n is the number of samples
                         and k is the number of features.
-        y (numpy.array): Target variable with shape (n, 1).
+        y (numpy.ndarray): Target variable with shape (n, 1).
 
     Returns:
-        Tuple[numpy.array, numpy.array]: Shuffled X and y arrays.
+        Tuple[numpy.ndarray, numpy.ndarray]: Shuffled X and y arrays.
 
     Example:
     ```python
@@ -70,8 +70,8 @@ class Batch:
         Args:
             size (int): Size of each batch.
             obs (int): Total sample size.
-            X (numpy.array): function providing access to Numpy array containing features.
-            y (numpy.array): function providing access to Numpy array containing target variable.    
+            X (numpy.ndarray): function providing access to Numpy array containing features.
+            y (numpy.ndarray): function providing access to Numpy array containing target variable.    
 
         Returns:
             None        
@@ -110,15 +110,15 @@ class Batch:
         self.c = 0
         raise StopIteration
 
-def onehot(y:numpy.array) -> numpy.array: 
+def onehot(y:numpy.ndarray) -> numpy.ndarray: 
     """
     One-hot encodes a categorical target variable.
 
     Args:
-        y (numpy.array): Numpy array containing the categorical target variable.
+        y (numpy.ndarray): Numpy array containing the categorical target variable.
 
     Returns:
-        numpy.array: One-hot encoded representation of the target variable.
+        numpy.ndarray: One-hot encoded representation of the target variable.
 
     Example:
     ```python
@@ -134,15 +134,15 @@ def onehot(y:numpy.array) -> numpy.array:
     """
     return (y==numpy.unique(y))+0
 
-def scaler(X: numpy.array) -> numpy.array:
+def scaler(X: numpy.ndarray) -> numpy.ndarray:
     """
     Custom scaler function for centering and standardizing features.
 
     Args:
-        X (numpy.array): Input numpy array containing features.
+        X (numpy.ndarray): Input numpy array containing features.
 
     Returns:
-        numpy.array: Scaled version of the input array.
+        numpy.ndarray: Scaled version of the input array.
 
     Example:
     ```python
