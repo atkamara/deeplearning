@@ -2,17 +2,17 @@ Neural-Net-Numpy(NNN)
 ========================
 
 <a href="https://ibb.co/mGcm59P"><img src="https://i.ibb.co/dr5S4PH/nn.png" alt="nn" border="0"></a>
-# [Documentation](https://atkamara.github.io/neural-net-numpy/)
+# Check [Documentation](https://atkamara.github.io/neural-net-numpy/) for more
 # Quick start
 
 
-## 0. Install neural-net-numpy
+## Step 0. Install neural-net-numpy
 
 ```bash
 $ pip install -i https://test.pypi.org/simple/ neural-net-numpy
 ```
 
-## 1. Import modules from neural_net package
+## Step 1. Import modules from neural_net package
 
 ```python
 from neural_net.architecture import Sequential
@@ -26,7 +26,7 @@ from neural_net.utils import IrisDatasetDownloader
 ```
 
 
-## 2. Define Your Model
+## Step 2. Define Your Model
 
 ```python
 NNN = Sequential(
@@ -40,7 +40,7 @@ NNN = Sequential(
     )
 ```
 
-## 3. Import or create your training dataset
+## Step 3. Import or create your training dataset
 
 ```python
 import numpy
@@ -50,13 +50,13 @@ X = numpy.random.uniform(-100,100,size=(n,k))
 y =( (X[:, 0]**2 + X[:, 1]**2)/numpy.pi < 1000).reshape(-1,1)+0
 ```
 
-## 4. Train your model
+## Step 4. Train your model
 
 ```python
 NNN.train(scaler(X),y,α=α,epochs=n_epoch,metrics=accuracy)
 ```
 
-## 5. Make predictions
+## Step 5. Make predictions
 
 ```python
 NNN.predict(X)
