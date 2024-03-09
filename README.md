@@ -53,7 +53,7 @@ y =( (X[:, 0]**2 + X[:, 1]**2)/numpy.pi < 1000).reshape(-1,1)+0
 ## Step 4. Train your model
 
 ```python
-NNN.train(scaler(X),y,α=α,epochs=n_epoch,metrics=accuracy)
+NNN.train(scaler(X),y,metrics=accuracy)
 ```
 
 ## Step 5. Make predictions
