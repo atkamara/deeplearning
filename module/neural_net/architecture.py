@@ -69,7 +69,7 @@ class Sequential(Architecture):
         ```
         """
         Xys = batch or [(X,y)]
-        epochs = tqdm.tqdm(range(epochs))
+        epochs = tqdm(range(epochs), ascii=' =')
         m = metrics()
 
         for _ in epochs:

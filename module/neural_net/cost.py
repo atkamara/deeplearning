@@ -118,9 +118,9 @@ class CrossEntropy(Cost):
             numpy.ndarray: Derivative function values.
         """
         left  = (self.y/self.p)
-        right = left.sum(axis=1,keepdims=True)*(f:=((1-self.y)/(1-self.p)))/f.sum(axis=1,keepdims=True)
-
-        return left - right
+        #right = left.sum(axis=1,keepdims=True)*(f:=((1-self.y)/(1-self.p)))/f.sum(axis=1,keepdims=True)
+        right = (1-self.y)/(1-self.p)
+        return -(left - right)
     def compute(self,y: numpy.ndarray,p: numpy.ndarray,clip : bool=True) -> float:
         """
         Computes the Cross-entropy loss.

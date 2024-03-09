@@ -6,7 +6,8 @@ Provides utility functions
 - `unfold` - Unfolds a nested dictionary by appending the values of inner dictionaries to the outer dictionary.
 """
 import numpy,os,pandas,re
-import datetime,tqdm
+import datetime
+from tqdm.autonotebook import tqdm
 from typing import Literal
 import requests
 from typing import Union
@@ -69,22 +70,24 @@ class Pearson:
             plots correlation heatmap
 
     Example:
-        >>> import pandas as pd
-        >>> from matplotlib import pyplot as plt
-        >>>
-        >>> # Create a sample dataset
-        >>> data = pd.DataFrame({
-        ...     'feature1': [1, 2, 3, 4, 5],
-        ...     'feature2': [5, 4, 3, 2, 1],
-        ...     'feature3': [3, 3, 3, 3, 3]
-        ... })
-        >>>
-        >>> # Initialize the Pearson correlation analyzer
-        >>> pearson_analyzer = Pearson(X=data.values,cols=data.columns)
-        >>> # Compute the Pearson correlation matrix
-        >>> correlation_matrix = pearson_analyzer.corr()
-        >>> # Generate the heatmap
-        >>> pearson_analyzer.heatmap()
+        ```python
+            >>> import pandas as pd
+            >>> from matplotlib import pyplot as plt
+            >>>
+            >>> # Create a sample dataset
+            >>> data = pd.DataFrame({
+            ...     'feature1': [1, 2, 3, 4, 5],
+            ...     'feature2': [5, 4, 3, 2, 1],
+            ...     'feature3': [3, 3, 3, 3, 3]
+            ... })
+            >>>
+            >>> # Initialize the Pearson correlation analyzer
+            >>> pearson_analyzer = Pearson(X=data.values,cols=data.columns)
+            >>> # Compute the Pearson correlation matrix
+            >>> correlation_matrix = pearson_analyzer.corr()
+            >>> # Generate the heatmap
+            >>> pearson_analyzer.heatmap()
+        ```
     """
     def __init__(self,X:numpy.ndarray,cols:list=None) -> None:
         """
@@ -146,11 +149,13 @@ def make_circle_data(centers:list,radii:list,p:float=.2,n_grid:int=100,xmin:int=
             Labels corresponding to the data points (1 if inside a circle, 0 otherwise).
 
     Example:
-        >>> centers = [(0, 0), (20, 30)]
-        >>> radii = [10, 15]
-        >>> X, y = make_circle(centers, radii, p=0.1)
-        >>> print(X.shape, y.shape)
-        (200, 2) (200,1)
+        ```python
+            >>> centers = [(0, 0), (20, 30)]
+            >>> radii = [10, 15]
+            >>> X, y = make_circle(centers, radii, p=0.1)
+            >>> print(X.shape, y.shape)
+            (200, 2) (200,1)
+        ```
     """
     x,y = numpy.linspace(xmin,xmax,n_grid),numpy.linspace(ymin,ymax,n_grid)
     xm,ym = numpy.meshgrid(x,y)
@@ -197,26 +202,28 @@ class IrisDatasetDownloader:
                 array of target variable
     
         Example:
-            >>> iris = IrisDatasetDownloader()
-            >>> iris.load_dataset()
-            >>> print(iris.data.shape,iris.target.shape)
-            (150, 4) (150, 1)
-            >>> print(iris.target_names)
-            ['setosa', 'versicolor', 'virginica']
-            >>> print(iris.feature_names)
-            ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
-            >>> print(iris.data[:5,:])
-            [[5.1 3.5 1.4 0.2]
-            [4.9 3.  1.4 0.2]
-            [4.7 3.2 1.3 0.2]
-            [4.6 3.1 1.5 0.2]
-            [5.  3.6 1.4 0.2]]
-            >>> print(iris.target[:5,:])
-            [[0]
-             [0]
-             [0]
-             [0]
-             [0]]
+            ```python
+                >>> iris = IrisDatasetDownloader()
+                >>> iris.load_dataset()
+                >>> print(iris.data.shape,iris.target.shape)
+                (150, 4) (150, 1)
+                >>> print(iris.target_names)
+                ['setosa', 'versicolor', 'virginica']
+                >>> print(iris.feature_names)
+                ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+                >>> print(iris.data[:5,:])
+                [[5.1 3.5 1.4 0.2]
+                [4.9 3.  1.4 0.2]
+                [4.7 3.2 1.3 0.2]
+                [4.6 3.1 1.5 0.2]
+                [5.  3.6 1.4 0.2]]
+                >>> print(iris.target[:5,:])
+                [[0]
+                 [0]
+                 [0]
+                 [0]
+                 [0]]
+            ```
     """
     description = r"""
         1. Title: Iris Plants Database
@@ -379,18 +386,20 @@ class HouseDatasetDownloader:
                 Full description of housing database
     
         Example:
-            >>> houseloader = HouseDatasetDownloader()
-            >>> houseloader.load_dataset()
-            >>> print(houseloader.columns)
-            ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV']
-            >>> print(houseloader.data)
-            [[6.3200e-03 1.8000e+01 2.3100e+00 ... 3.9690e+02 4.9800e+00 2.4000e+01]
-            [2.7310e-02 0.0000e+00 7.0700e+00 ... 3.9690e+02 9.1400e+00 2.1600e+01]
-            [2.7290e-02 0.0000e+00 7.0700e+00 ... 3.9283e+02 4.0300e+00 3.4700e+01]
-            ...
-            [6.0760e-02 0.0000e+00 1.1930e+01 ... 3.9690e+02 5.6400e+00 2.3900e+01]
-            [1.0959e-01 0.0000e+00 1.1930e+01 ... 3.9345e+02 6.4800e+00 2.2000e+01]
-            [4.7410e-02 0.0000e+00 1.1930e+01 ... 3.9690e+02 7.8800e+00 1.1900e+01]]
+            ```python
+                >>> houseloader = HouseDatasetDownloader()
+                >>> houseloader.load_dataset()
+                >>> print(houseloader.columns)
+                ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV']
+                >>> print(houseloader.data)
+                [[6.3200e-03 1.8000e+01 2.3100e+00 ... 3.9690e+02 4.9800e+00 2.4000e+01]
+                [2.7310e-02 0.0000e+00 7.0700e+00 ... 3.9690e+02 9.1400e+00 2.1600e+01]
+                [2.7290e-02 0.0000e+00 7.0700e+00 ... 3.9283e+02 4.0300e+00 3.4700e+01]
+                ...
+                [6.0760e-02 0.0000e+00 1.1930e+01 ... 3.9690e+02 5.6400e+00 2.3900e+01]
+                [1.0959e-01 0.0000e+00 1.1930e+01 ... 3.9345e+02 6.4800e+00 2.2000e+01]
+                [4.7410e-02 0.0000e+00 1.1930e+01 ... 3.9690e+02 7.8800e+00 1.1900e+01]]
+            ```
     """
 
     def __init__(self,src="http://lib.stat.cmu.edu/datasets/boston"):
@@ -404,6 +413,6 @@ class HouseDatasetDownloader:
         self.csv = requests.get(self.src).text
         self.description,data = self.csv[:self.csv.index("0.00632")],self.csv[self.csv.index("0.00632"):]
         data = data.replace('\n  ','  ').split('\n')[:-1]
-        data = [re.findall('(\d+\.*\d*)',r) for r in data]
+        data = [re.findall(r'(\d+\.*\d*)',r) for r in data]
         self.data = numpy.array(data).astype(float)
         self.columns = columns = [c.split()[0] for c in self.description.split('\n')[-16:-2]]

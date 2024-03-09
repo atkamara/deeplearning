@@ -14,7 +14,7 @@ from .db import DBmanager,get_instance,update_instance,tables
 
 class Define(DBmanager):
 
-    __store = False
+    __store = True
 
     def __repr__(self) -> str:
         """
@@ -134,8 +134,9 @@ class Define(DBmanager):
 
         """
         value = self.compute(self.y,self.p)
-        self.commit()
-        del(self.table)
+        if Define._Define__store:
+            self.commit()
+            del(self.table)
         self + {**self.id,**locals()}
         return value
     

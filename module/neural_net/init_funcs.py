@@ -26,7 +26,7 @@ class XavierHe:
     """
     This class implements Xavier Glorot and He initializations.(source Hands on ML)
 
-    <a href="https://imgbb.com/"><img src="https://i.ibb.co/FHwxjmL/Screenshot-2024-03-03-084231.png" alt="Screenshot-2024-03-03-084231" border="0"></a>
+    ![png](static/xahe.png)
     
     Attributes:
         random (dict): contains generators of random values by distribution. 
@@ -36,8 +36,8 @@ class XavierHe:
         distribution (str["Uniform","Normal"]): Name of distribution.
         activation (str["Sigmoid","Tanh","ReLU"]): Name of activation.
     
-    returns:
-        lambda : func(n_in,n_out,biais=True) for generating random values 
+    Attributes:
+        init_func : func(n_in,n_out,biais=True) for generating random values 
     
     """
     random = {

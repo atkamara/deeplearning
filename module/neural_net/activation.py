@@ -50,7 +50,7 @@ class Σ(Neurons):
         Returns:
             numpy.ndarray: Derivative matrix.
         """
-        return self.Xb
+        return self.Xb()
 
     def compute(self,X:numpy.ndarray) -> numpy.ndarray:
         """
@@ -311,9 +311,6 @@ class ReLU(Neurons):
 
         pr():
             Computes the derivative of the ReLU function.
-
-    Args:
-        α (float): The slope coefficient for negative values (default is 0.001).
 
     """
     def __init__(self,Layer:Layer=None) -> None:
