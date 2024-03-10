@@ -14,7 +14,7 @@ from .db import DBmanager,get_instance,update_instance,tables
 
 class Define(DBmanager):
 
-    __store = True
+    __store = False
 
     def __repr__(self) -> str:
         """

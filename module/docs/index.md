@@ -1,7 +1,7 @@
 This site contains the project documentation for the
 `neural network with numpy` project that provides functions to build neural network using only numpy components
 [github link](
-    https://github.com/atkamara/deeplearning/tree/main/Neural%20Net%20v0.1.4).
+    https://github.com/atkamara/deeplearning).
 
 
 ## Table Of Contents

@@ -23,5 +23,5 @@ from . import pipeline
 from . import model
 from . import utils
 
-__version__ = "0.1.4"
+__version__ = "0.1.8"
 __author__ = 'Abdourahmane Tintou Kamara'

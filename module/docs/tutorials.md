@@ -23,21 +23,21 @@ $ pip install -i https://test.pypi.org/simple/ neural-net-numpy
 
     Requirement already satisfied: pip in /home/analyst/dlenv/lib/python3.11/site-packages (24.0)
     Looking in indexes: https://test.pypi.org/simple/
-    Collecting neural-net-numpy==0.1.4
-      Downloading https://test-files.pythonhosted.org/packages/48/77/4d5e4d9de3f9bd758dd510a2d9a3dfb0566f3c90dcd8e40d81e3af815ef4/neural_net_numpy-0.1.4-py3-none-any.whl.metadata (1.8 kB)
-    Requirement already satisfied: tqdm>=4.66.2 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.4) (4.66.2)
-    Requirement already satisfied: numpy>=1.26.4 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.4) (1.26.4)
-    Requirement already satisfied: SQLAlchemy>=2.0.27 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.4) (2.0.27)
-    Requirement already satisfied: pandas>=2.2.0 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.4) (2.2.0)
-    Requirement already satisfied: python-dateutil>=2.8.2 in /home/analyst/dlenv/lib/python3.11/site-packages (from pandas>=2.2.0->neural-net-numpy==0.1.4) (2.8.2)
-    Requirement already satisfied: pytz>=2020.1 in /home/analyst/dlenv/lib/python3.11/site-packages (from pandas>=2.2.0->neural-net-numpy==0.1.4) (2024.1)
-    Requirement already satisfied: tzdata>=2022.7 in /home/analyst/dlenv/lib/python3.11/site-packages (from pandas>=2.2.0->neural-net-numpy==0.1.4) (2024.1)
-    Requirement already satisfied: typing-extensions>=4.6.0 in /home/analyst/dlenv/lib/python3.11/site-packages (from SQLAlchemy>=2.0.27->neural-net-numpy==0.1.4) (4.9.0)
-    Requirement already satisfied: greenlet!=0.4.17 in /home/analyst/dlenv/lib/python3.11/site-packages (from SQLAlchemy>=2.0.27->neural-net-numpy==0.1.4) (3.0.3)
-    Requirement already satisfied: six>=1.5 in /home/analyst/dlenv/lib/python3.11/site-packages (from python-dateutil>=2.8.2->pandas>=2.2.0->neural-net-numpy==0.1.4) (1.16.0)
-    Downloading https://test-files.pythonhosted.org/packages/48/77/4d5e4d9de3f9bd758dd510a2d9a3dfb0566f3c90dcd8e40d81e3af815ef4/neural_net_numpy-0.1.4-py3-none-any.whl (16 kB)
+    Collecting neural-net-numpy==0.1.8
+      Downloading https://test-files.pythonhosted.org/packages/48/77/4d5e4d9de3f9bd758dd510a2d9a3dfb0566f3c90dcd8e40d81e3af815ef4/neural_net_numpy-0.1.8-py3-none-any.whl.metadata (1.8 kB)
+    Requirement already satisfied: tqdm>=4.66.2 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.8) (4.66.2)
+    Requirement already satisfied: numpy>=1.26.4 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.8) (1.26.4)
+    Requirement already satisfied: SQLAlchemy>=2.0.27 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.8) (2.0.27)
+    Requirement already satisfied: pandas>=2.2.0 in /home/analyst/dlenv/lib/python3.11/site-packages (from neural-net-numpy==0.1.8) (2.2.0)
+    Requirement already satisfied: python-dateutil>=2.8.2 in /home/analyst/dlenv/lib/python3.11/site-packages (from pandas>=2.2.0->neural-net-numpy==0.1.8) (2.8.2)
+    Requirement already satisfied: pytz>=2020.1 in /home/analyst/dlenv/lib/python3.11/site-packages (from pandas>=2.2.0->neural-net-numpy==0.1.8) (2024.1)
+    Requirement already satisfied: tzdata>=2022.7 in /home/analyst/dlenv/lib/python3.11/site-packages (from pandas>=2.2.0->neural-net-numpy==0.1.8) (2024.1)
+    Requirement already satisfied: typing-extensions>=4.6.0 in /home/analyst/dlenv/lib/python3.11/site-packages (from SQLAlchemy>=2.0.27->neural-net-numpy==0.1.8) (4.9.0)
+    Requirement already satisfied: greenlet!=0.4.17 in /home/analyst/dlenv/lib/python3.11/site-packages (from SQLAlchemy>=2.0.27->neural-net-numpy==0.1.8) (3.0.3)
+    Requirement already satisfied: six>=1.5 in /home/analyst/dlenv/lib/python3.11/site-packages (from python-dateutil>=2.8.2->pandas>=2.2.0->neural-net-numpy==0.1.8) (1.16.0)
+    Downloading https://test-files.pythonhosted.org/packages/48/77/4d5e4d9de3f9bd758dd510a2d9a3dfb0566f3c90dcd8e40d81e3af815ef4/neural_net_numpy-0.1.8-py3-none-any.whl (16 kB)
     Installing collected packages: neural-net-numpy
-    Successfully installed neural-net-numpy-0.1.4
+    Successfully installed neural-net-numpy-0.1.8
 
 
 ### Check install
