@@ -130,8 +130,3 @@ class MAE(Metrics):
         return numpy.abs(self.y-self.p).mean()
 
 
-class Empty:
-    def __repr__(self):return ''
-    def __str__(self):return ''
-    def __init__(self):...
-    def compute(self,y,p): return ''
