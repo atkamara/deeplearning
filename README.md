@@ -1,4 +1,4 @@
-Neural-Net-Numpy(NNN)
+Neural-Net-Numpy(nnn)
 ========================
 
 <a href="https://ibb.co/mGcm59P"><img src="https://i.ibb.co/dr5S4PH/nn.png" alt="nn" border="0"></a>
